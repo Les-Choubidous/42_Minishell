@@ -13,7 +13,7 @@ Le projet Minishell permet de renforcer les compétences en programmation systè
     - La redirection des entrées/sorties (I/O) : permettre les redirections standard > et <.
     - La gestion des pipes (|) : enchaîner des commandes avec une communication entre elles.
     - Les signaux : gérer l'interruption du programme avec des signaux comme Ctrl+C, Ctrl+D, etc.
-    
+
 Voici le [sujet](.media/en.subject.pdf)
 
 # Télécharge et test ⬇️
@@ -42,3 +42,22 @@ Toute cette partie correspond à ce que l'on doit rendre pour ce faire corriger.
 | `make re` | Execute `fclean` puis `make` |
 
 <br>
+
+## Explication de la structure
+
+## Tests et visualisation 📋
+
+## Note Final et Commentaires 📔
+
+<br>
+
+| |
+| --- |
+| ![](.media/note.png) |
+
+
+| | |
+| --- | --- |
+| Correcteur 1 | <img src=".media/com1.png" /> |
+| Correcteur 2 | <img src=".media/com2.png" /> |
+| Correcteur 3 | <img src=".media/com3.png" /> |
