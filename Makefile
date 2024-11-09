@@ -6,14 +6,14 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/09 23:02:14 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/09 23:27:58 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
 CC			=	cc 
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
@@ -150,3 +150,6 @@ entry_message:
 				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR} .c files in total${RESET}"
 
 .PHONY:			all clean fclean re project_logo entry_message
+
+# Inclusion des fichiers de dépendances
+-include $(DEPS)
