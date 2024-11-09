@@ -8,13 +8,12 @@ Ce projet, développé dans le cadre de la formation à l'École 42, consiste en
 
 Objectifs
 Le projet Minishell permet de renforcer les compétences en programmation système en abordant des concepts avancés comme :
-
     - La gestion des processus : exécuter des commandes et manipuler les processus enfants.
     - La redirection des entrées/sorties (I/O) : permettre les redirections standard > et <.
     - La gestion des pipes (|) : enchaîner des commandes avec une communication entre elles.
     - Les signaux : gérer l'interruption du programme avec des signaux comme Ctrl+C, Ctrl+D, etc.
 
-Voici le [sujet](.media/en.subject.pdf)
+Voici le [sujet](.media/en.subject.pdf).
 
 # Télécharge et test ⬇️
 
