@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/09 22:10:56 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/09 23:02:14 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=	minishell
 CC			=	cc 
 CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address
 LIBFT		=	libft.a
+READLINE	=	-lreadline
 
 #Directories
 SRC_DIR		=	./sources/
@@ -114,21 +115,24 @@ $(OBJ_DIR)/%.o:	$(SRCS_DIR)%.c
 #				$(call progress_barre)
 #				@printf "\n"
 
-
 clean:
 				@make -sC ${LIBFT_DIR} clean >/dev/null 2>&1
 				@if [ ! -d "${OBJ_DIR}" ]; \
 				then \
-					echo "Repo already clean"; \
+					echo "${YELLOW}${INFO} Repo .o already clean${RESET}"; \
 				else \
-					echo "Removing all .o files"; \
+					echo "${RED}Removing all .o files${RESET}"; \
 					rm -r ${OBJ_DIR}; \
 				fi
 
-fclean:			clean
+fclean: clean
 				@make -sC ${LIBFT_DIR} fclean >/dev/null 2>&1
-				@echo "Removing ${NAME} and ${LIBFT} files from root"
-				@rm -f ${NAME} ${LIBFT}
+				@if [ -f "${NAME}" ] || [ -f "${LIBFT}" ]; then \
+					echo "${RED}Removing ${NAME} and ${LIBFT} files from root${RESET}"; \
+					rm -f ${NAME} ${LIBFT}; \
+				else \
+					echo "${YELLOW}${INFO} ${NAME} and ${LIBFT} already removed${RESET}"; \
+				fi
 
 re:				fclean all
 
