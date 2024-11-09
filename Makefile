@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/09 21:30:24 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/09 22:10:56 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,19 @@ INFO	=	ⓘ
 CLEAN	=	♻
 TRASH	=	🗑
 
+# # Barre de progression
+# COUNT = 0
+# TOTAL = $(words ${OBJS})
+
+# define progress_barre
+# 	$(eval COUNT=$(shell echo $$(($(COUNT) + 1))))
+# 	$(eval PERCENT=$$(($(COUNT) * 100 / $(TOTAL))))
+# 	@printf "\r${CYAN}Progress: ["
+# 	@for i in $$(seq 1 $(PERCENT)); do printf "#"; done
+# 	@for i in $$(seq $(PERCENT) 100); do printf " "; done
+# 	@printf "] $(PERCENT)%% ($(COUNT)/$(TOTAL))$(RESET)"
+# endef
+	
 # Sources
 SRC		=	0_utils/... \
 			1_lexer/... \
@@ -72,6 +85,7 @@ OBJS	=	$(patsubst ${SRCS_DIR}%, ${OBJ_DIR}/%, $(SRCS:.c=.o))
 all:		project_logo ${OBJ_DIR}
 				@make -s ${LIBFT}
 				@make -s ${NAME}
+#				@echo "\nCompilation complete."
 
 ${LIBFT}:
 				@echo "${CYAN}\nCOMPILING $$(echo ${LIBFT} | tr '[:lower:]' '[:upper:]')${RESET}"
@@ -97,6 +111,8 @@ $(OBJ_DIR)/%.o:	$(SRCS_DIR)%.c
 				printf "${GREEN}"; \
 				printf " ${OK}\n"; \
 				printf "${RESET}"; 
+#				$(call progress_barre)
+#				@printf "\n"
 
 
 clean:
