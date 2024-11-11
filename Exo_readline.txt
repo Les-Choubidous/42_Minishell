@@ -1,0 +1,36 @@
+Mini-Shell Interactif avec Historique et Manipulation de Commandes
+
+Objectif
+
+L'objectif est de se familiariser avec les fonctions de la bibliothèque readline et d'implémenter les fonctionnalités suivantes :
+
+    Lecture de l'entrée utilisateur avec readline
+    Gestion de l'historique des commandes avec add_history et rl_clear_history
+    Modification de la ligne de commande en cours avec rl_replace_line et rl_redisplay
+    Affichage d'une ligne propre avec rl_on_new_line
+
+Fonctionnalités
+
+	Lecture de l'entrée de l'utilisateur avec readline
+        Affiche un prompt personnalisé ("mini-shell> ").
+        Lit la commande de l'utilisateur avec readline.
+
+    Ajout des commandes dans l'historique avec add_history
+        Enregistre chaque commande saisie pour permettre une navigation dans l'historique à l'aide des flèches haut/bas.
+
+    Affichage de l'historique des commandes
+        Si l'utilisateur entre history, affiche toutes les commandes précédemment enregistrées.
+
+    Remplacement de la ligne de commande avec rl_replace_line
+        Si l'utilisateur entre replace <text>, la ligne de commande actuelle est remplacée par <text>.
+        Utilise rl_replace_line pour modifier la ligne et rl_redisplay pour rafraîchir l'affichage.
+
+    Effacement de l'historique avec rl_clear_history
+        Si l'utilisateur entre clear_history, l'historique des commandes est effacé.
+        Affiche un message confirmant que l'historique a été vidé.
+
+    Rafraîchissement de la ligne de commande avec rl_on_new_line et rl_redisplay
+        Permet d'afficher une nouvelle ligne propre après l'exécution d'une commande spéciale.
+
+    Sortie du programme
+        Si l'utilisateur entre exit, le shell termine proprement.

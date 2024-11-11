@@ -1,0 +1,4 @@
+execute avec excve
+avant d'executer : creation des variables d'environnements
+	char **env
+creation PATH
