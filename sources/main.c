@@ -1,24 +1,35 @@
-#include "messages.h"
-#include "minishell.h"
+# include "minishell.h"
 
-int	main ()
+void launch_minishell(t_data *data)
 {
-	char	*mini_shell;
+    affiche le prompt (miniishell $)
+    read line 
+    renviie vers lexer
+    decompose par parser
+    execute
+    return (1 | 0)
+}
 
-	mini_shell = readline("minishell$ ");
-	while(mini_shell)
-	{
-		if (strcmp(mini_shell, "exit") == 0)
-		{
-			printf(CYAN "Ciaaaao minishell" RESET);
-			printf(MAGENTA "$\n" RESET);
-			break;
-		}
-		//analyser les "arguments" saisies par l'utilisateur : parsing?
-		//si ok ex? 
-		add_history(mini_shell);
-		free (mini_shell);
-	}
-	rl_clear_history();
-	return(0);
+void exit_minishell(t_data *data, int exit_status)
+{   
+    ft_printf_colour(RED, "");
+    rl_clear_history(); // Le sujet dit d'avoir un working history, nous on le clean entre chaque execution
+    exit(exit_status);
+}
+
+int main(int ac, char **av, char **env)
+{
+    t_data  data;
+
+    if (ac != 1)
+    {
+        errno = EINVAL;
+        perror("Error main");
+        exit(EXIT_FAILURE);
+    }
+    ft_memset(&data, 0, sizeof(t_data));
+    if (/*init data a fail*/)
+        exit_minishell(&data, EXIT_FAILURE);
+    launch_minishell(&data);
+    return (EXIT_SUCCESS);
 }
