@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-#ifndef MESSAGES_H
-# define MESSAGES_H
 
-
-
-# endif
-=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -18,4 +11,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
->>>>>>> 57e62ce7d6db3bfd2edd2a555df92b3f004b12ba
+#ifndef MESSAGES_H
+# define MESSAGES_H
+
+/*****************************COLORS**********************************/
+
+# define RESET   "\033[0m"
+# define BLACK   "\033[0;30m"
+# define RED     "\033[0;31m"
+# define GREEN   "\033[1;32m"
+# define YELLOW  "\033[1;33m"
+# define BLUE    "\033[0;34m"
+# define PURPLE  "\033[1;35m"
+# define CYAN    "\033[1;36m"
+# define WHITE   "\033[0;37m"
+# define ROSE    "\033[38;5;216m"
+# define BOLD    "\033[1m"
+
+/*****************************MESSAGES**********************************/
+
+
+
+#endif
