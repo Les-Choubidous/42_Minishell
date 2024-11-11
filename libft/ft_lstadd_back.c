@@ -6,15 +6,15 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:32:46 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:32:48 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:34:32 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list_bonus **lst, t_list_bonus *new)
 {
-	t_list	*tmp;
+	t_list_bonus	*tmp;
 
 	if (!*lst)
 		*lst = new;

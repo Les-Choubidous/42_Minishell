@@ -1,18 +1,23 @@
-# include "minishell.h"
+# include "../includes/minishell.h"
 
 void launch_minishell(t_data *data)
-{
-    affiche le prompt (miniishell $)
-    read line 
-    renviie vers lexer
-    decompose par parser
-    execute
-    return (1 | 0)
+{   
+    while (1)
+    {
+        affiche le prompt (miniishell $)
+        read line 
+        renviie vers lexer
+        decompose par parser
+        execute
+    }
 }
 
 void exit_minishell(t_data *data, int exit_status)
 {   
-    ft_printf_colour(RED, "");
+    ft_printf_colour(RED, "Exiting minishell 👋\n");
+    if ()
+
+    free_all_memory(data);
     rl_clear_history(); // Le sujet dit d'avoir un working history, nous on le clean entre chaque execution
     exit(exit_status);
 }
@@ -33,3 +38,8 @@ int main(int ac, char **av, char **env)
     launch_minishell(&data);
     return (EXIT_SUCCESS);
 }
+
+// int main()
+// {
+//    printf(PROMPT0 PROMPT1);
+// }
