@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 16:04:59 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/12 17:08:38 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@
 /*****************************DATA_STRUCTURE**********************************/
 typedef enum e_quote
 {
-	NO_QUOTES,	//
-	S_QUOTES,	//''
-	D_QUOTES,	//""
-
+	NO_QUOTES,
+	SPL_QUOTES,
+	DBL_QUOTES,
 }				t_quote;
 
 typedef enum e_type
 {
-	OUTPUT,		//>
-	INPUT,		//<
-	APPEND,		//>>
-	HEREDOC,	//<<
-	PIPE,		//|
+	OUTPUT,
+	INPUT,
+	APPEND,
+	HEREDOC,
+	PIPE,
 	STDIN,
 	STDOUT,
 	CMD,
@@ -46,11 +45,10 @@ typedef enum e_type
 
 typedef struct s_list
 {
-		char			*value;
-		t_quote			quote;
-		struct s_list	*next;
+	char			*value;
+	t_quote			quote;
+	struct s_list	*next;
 }						t_list;
-
 
 typedef struct s_commands
 {
@@ -89,12 +87,16 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
+/* *line correspond a *argv 
+	rajout potenitel de t_env	*env
+	 a la place de char **env */
+
 typedef struct s_data
 {
 	char		**env;
 	char		*path;
-	char		*line; /* "*argv" */
-	
+	char		*line;
+
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
@@ -103,6 +105,11 @@ typedef struct s_data
 
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
+/*signals.c*/
+void	reset_line(int signum);
+void	display_new_line(int signum);
+void	signal_interactive(void);
+void	signal_non_interacitve(void);
 
 /*************************       1_lexer       *******************************/
 
@@ -113,6 +120,5 @@ typedef struct s_data
 /*************************      4_builtins     *******************************/
 
 /*************************        5_free       *******************************/
-
 
 #endif

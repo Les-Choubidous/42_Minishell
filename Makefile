@@ -6,14 +6,14 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/12 12:59:57 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/12 17:28:02 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
 CC			=	cc 
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
+CFLAGS		=	#-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
@@ -68,9 +68,9 @@ TRASH	=	🗑
 # endef
 	
 # Sources
-SRC		=	sources/main.c 
-#			0_utils/... \
-			1_lexer/... \
+SRC		=	sources/main.c \
+			sources/0_utils/signals.c 
+#			1_lexer/... \
 			2_parser/... \
 			3_executer/... \
 			4_builtins/... \
