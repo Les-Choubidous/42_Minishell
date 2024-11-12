@@ -6,15 +6,15 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:33:19 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:33:23 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:33:55 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_list_bonus *lst, void (*f)(void *))
 {
-	t_list	*lst1;
+	t_list_bonus	*lst1;
 
 	if (!lst || !f)
 		return ;

@@ -6,7 +6,12 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
+/*   Updated: 2024/11/11 18:52:53 by uzanchi          ###   ########.fr       */
 /*   Updated: 2024/11/11 17:37:20 by uzanchi          ###   ########.fr       */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
+/*   Updated: 2024/11/11 17:19:31 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +55,33 @@ typedef enum e_type
 
 typedef struct s_list
 {
-		char	*value;
-		t_quote	quote;
-
-		t_list	*next;
-}				t_list;
+		char			*value;
+		t_quote			quote;
+		struct s_list	*next;
+}						t_list;
 
 
 typedef struct s_commands
 {
-	char		*command;
-	char		**out;
+	char				*command;
+	char				**out;
 
-	t_list		*flag;
-	t_list		*arg;
+	t_list				*flag;
+	t_list				*arg;
 
-	t_commands	*next;
-}				t_commands;
+	struct s_commands	*next;
+}					t_commands;
 
 typedef struct s_token
 {
-	char		*value;
+	char				*value;
 
-	t_type		type;
-	t_quote		quote;
+	t_type				type;
+	t_quote				quote;
 
-	t_token		*next;
-	t_token		*prev;
-}				t_token;
+	struct s_token		*next;
+	struct s_token		*prev;
+}						t_token;
 
 typedef struct s_in_out
 {

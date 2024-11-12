@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:43:20 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/08/28 11:42:34 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/12 12:37:03 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@
 
 /*Definition of structure for Libft_bonus*/
 
-typedef struct s_list
+typedef struct s_list_bonus
 {
-	void			*content;
-	struct s_list	*next;
-	struct s_list	*prev;
-}					t_list;
+	void				*content;
+	struct s_list_bonus	*next;
+	struct s_list_bonus	*prev;
+}						t_list_bonus;
 
 /*Libft main part*/
 
@@ -90,15 +90,15 @@ void			ft_putnbr_fd(int n, int fd);
 
 /*Libft Bonus Part*/
 
-t_list			*ft_lstnew(void *content);
-void			ft_lstadd_front(t_list **alst, t_list *new);
-int				ft_lstsize(t_list *lst);
-t_list			*ft_lstlast(t_list *lst);
-void			ft_lstadd_back(t_list **lst, t_list *new);
-void			ft_lstdelone(t_list *lst, void (*del)(void *));
-void			ft_lstclear(t_list **lst, void (*del)(void *));
-void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
+t_list_bonus			*ft_lstnew(void *content);
+void			ft_lstadd_front(t_list_bonus **alst, t_list_bonus *new);
+int				ft_lstsize(t_list_bonus *lst);
+t_list_bonus			*ft_lstlast(t_list_bonus *lst);
+void			ft_lstadd_back(t_list_bonus **lst, t_list_bonus *new);
+void			ft_lstdelone(t_list_bonus *lst, void (*del)(void *));
+void			ft_lstclear(t_list_bonus **lst, void (*del)(void *));
+void			ft_lstiter(t_list_bonus *lst, void (*f)(void *));
+t_list_bonus			*ft_lstmap(t_list_bonus *lst, void *(*f)(void *),
 					void (*del)(void *));
 /*Ft_Printf function and utils*/
 
