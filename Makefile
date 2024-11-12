@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/11 12:30:12 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/12 12:59:57 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,13 +68,13 @@ TRASH	=	🗑
 # endef
 	
 # Sources
-SRC		=	0_utils/... \
+SRC		=	sources/main.c 
+#			0_utils/... \
 			1_lexer/... \
 			2_parser/... \
 			3_executer/... \
 			4_builtins/... \
-			5_free/... \
-			main.c
+			5_free/... 
 
 SRCS	=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NB	=	$(words ${SRCS})
@@ -147,7 +147,7 @@ project_logo:
 	@echo "			a 42 Project by MOTYLEWSKI Melina & ZANCHI Ugo								   "
 
 entry_message:
-				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR} .c files in total${RESET}"
+				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR}.c files in total${RESET}"
 
 .PHONY:			all clean fclean re project_logo entry_message
 

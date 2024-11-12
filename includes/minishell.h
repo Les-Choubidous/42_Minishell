@@ -6,12 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/11 18:52:53 by uzanchi          ###   ########.fr       */
-/*   Updated: 2024/11/11 17:37:20 by uzanchi          ###   ########.fr       */
-/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/11 17:19:31 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:04:59 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +38,10 @@ typedef enum e_type
 	INPUT,		//<
 	APPEND,		//>>
 	HEREDOC,	//<<
-
 	PIPE,		//|
-
 	STDIN,
 	STDOUT,
-
 	CMD,
-
 }			t_type;
 
 typedef struct s_list
@@ -91,12 +82,19 @@ typedef struct s_in_out
 	t_quote		quotes;
 }				t_in_out;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
 
 typedef struct s_data
 {
 	char		**env;
 	char		*path;
-
+	char		*line; /* "*argv" */
+	
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;

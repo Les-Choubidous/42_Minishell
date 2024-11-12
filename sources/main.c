@@ -2,13 +2,23 @@
 
 void launch_minishell(t_data *data)
 {   
-    while (1)
+    while (1)  
     {
-        affiche le prompt (miniishell $)
-        read line 
-        renviie vers lexer
-        decompose par parser
-        execute
+        signal_ON();
+        data->line = readline(PROMPT0 PROMPT1);
+        if (data->line == NULL)
+            exit_minishell(data, EXIT_SUCCESS);
+        signal_OFF();
+        if (data->line[0] != '\0')
+            add_history(data->line);
+        /*if (lexer(data) == EXIT_FAILURE ||
+            parser(data) == EXIT_FAILURE || 
+            executor(data) == EXIT_FAILURE)
+        {
+            free_mem_between_cmd(data);
+            continue ;
+        }
+        free_mem_between_cmd(data);*/
     }
 }
 
@@ -33,7 +43,7 @@ int main(int ac, char **av, char **env)
         exit(EXIT_FAILURE);
     }
     ft_memset(&data, 0, sizeof(t_data));
-    if (/*init data a fail*/)
+    if (/*init_data(&data, env) == EXIT_FAILURE*/)
         exit_minishell(&data, EXIT_FAILURE);
     launch_minishell(&data);
     return (EXIT_SUCCESS);
@@ -43,4 +53,3 @@ int main(int ac, char **av, char **env)
 // {
 //    printf(PROMPT0 PROMPT1);
 // }
-}
