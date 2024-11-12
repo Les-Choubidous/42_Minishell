@@ -6,16 +6,16 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:37:53 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:37:55 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:33:20 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list_bonus	*ft_lstmap(t_list_bonus *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*node;
+	t_list_bonus	*new_lst;
+	t_list_bonus	*node;
 	void	*mapped_content;
 
 	if (!lst || !f || !del)

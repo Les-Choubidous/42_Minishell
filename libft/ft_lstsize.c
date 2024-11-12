@@ -6,13 +6,13 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:34:13 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:34:15 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:32:47 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list_bonus *lst)
 {
 	int	size;
 
