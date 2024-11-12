@@ -10,8 +10,10 @@ void launch_minishell(t_data *data)
         signal_interactive();
         data->line = readline(PROMPT0 PROMPT1);
         if (data->line == NULL)
-            exit_minishell(data, EXIT_SUCCESS);
+            exit_minishell(data, EXIT_SUCCESS); 
         signal_non_interacitve();
+        if (ft_strlen(data->line))
+            add_history(data->line);
         /*if (data->line[0] != '\0')
             add_history(data->line);
         if (lexer(data) == EXIT_FAILURE ||

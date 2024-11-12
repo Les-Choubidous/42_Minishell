@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 17:08:38 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/12 23:35:11 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <fcntl.h>
 # include <signal.h>
 
+/*******************************MACROS***************************************/
+# define SUPPORTED_SYMBOLS "<|>"
+
 /*****************************DATA_STRUCTURE**********************************/
 typedef enum e_quote
 {
@@ -33,14 +36,15 @@ typedef enum e_quote
 
 typedef enum e_type
 {
-	OUTPUT,
-	INPUT,
-	APPEND,
-	HEREDOC,
-	PIPE,
-	STDIN,
-	STDOUT,
+	NOTHING,
 	CMD,
+	ARG,		// les arguments de la string (texte)
+	OUTPUT,		// >
+	INPUT,		// <
+	APPEND,		// >>
+	HEREDOC,	// <<
+	LIM,
+	PIPE,
 }			t_type;
 
 typedef struct s_list
