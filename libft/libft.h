@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:43:20 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/11 18:37:03 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/12 12:37:03 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 
 typedef struct s_list_bonus
 {
-	void			*content;
-	struct s_list	*next;
-	struct s_list	*prev;
-}					t_list_bonus;
+	void				*content;
+	struct s_list_bonus	*next;
+	struct s_list_bonus	*prev;
+}						t_list_bonus;
 
 /*Libft main part*/
 
