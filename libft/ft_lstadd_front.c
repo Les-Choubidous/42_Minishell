@@ -6,13 +6,13 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:32:36 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:32:38 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:34:22 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	ft_lstadd_front(t_list_bonus **alst, t_list_bonus *new)
 {
 	if (alst != NULL && new != NULL)
 	{

@@ -6,13 +6,13 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:32:16 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/05/02 12:32:19 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/11 18:33:46 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_list_bonus	*ft_lstlast(t_list_bonus *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;
