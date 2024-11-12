@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 16:56:11 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:40:46 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_env
 typedef struct s_data
 {
 
-	char		**path;
 	char		*full_path;
+	char		**path;
 
 	t_env		*env;
 	t_commands	*command;
@@ -113,6 +113,7 @@ typedef struct s_data
 
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
+/*init.c*/
 int		init_data(t_data *data, char **env);
 void	init_io(t_data *data);
 char	*init_full_path(char **env);

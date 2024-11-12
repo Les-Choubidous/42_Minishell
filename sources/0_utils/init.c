@@ -6,11 +6,11 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/12 17:15:01 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:58:39 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 char	*init_full_path(char **env)
 {
@@ -26,15 +26,12 @@ char	*init_full_path(char **env)
 			full_path = ft_strdup(env[i] + 5);
 			if (!full_path)
 				return (NULL);
-			break ;
 		}
 		i++;
 	}
+	// printf("%s\n", full_path);
 	return (full_path);
 }
-
-#include <stdlib.h>
-#include <string.h>
 
 t_env	*add_env_node(t_env **head, char *env_var)
 {
@@ -66,7 +63,6 @@ t_env	*add_env_node(t_env **head, char *env_var)
 	}
 	return (new_node);
 }
-
 
 t_env	*get_env(char **env)
 {
