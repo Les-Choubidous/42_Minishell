@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
+#    By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/11 12:30:12 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/12 15:02:22 by memotyle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
-CC			=	cc 
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
+CC			=	cc
+CFLAGS		=	-Wall -Werror -Wextra -g -MMD -MP #-fsanitize=address
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
@@ -45,7 +45,7 @@ BOLD	=	\033[1m
 # BLINKING = 5
 # INVERTED/UNDERLINE = 7
 # HIDDEN = 8
-# CROSSED OUT = 9 
+# CROSSED OUT = 9
 
 # Symbols
 OK		=	✓
@@ -66,15 +66,15 @@ TRASH	=	🗑
 # 	@for i in $$(seq $(PERCENT) 100); do printf " "; done
 # 	@printf "] $(PERCENT)%% ($(COUNT)/$(TOTAL))$(RESET)"
 # endef
-	
+
 # Sources
-SRC		=	0_utils/... \
-			1_lexer/... \
-			2_parser/... \
-			3_executer/... \
-			4_builtins/... \
-			5_free/... \
-			main.c
+SRC		=	sources/main.c \
+			sources/0_utils/init.c \
+			#1_lexer/... \
+			#2_parser/... \
+			#3_executer/... \
+			#4_builtins/... \
+			#5_free/...
 
 SRCS	=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NB	=	$(words ${SRCS})
@@ -111,7 +111,7 @@ $(OBJ_DIR)/%.o:	$(SRCS_DIR)%.c
 				${CC} ${CFLAGS} -I${HEAD_DIR} -c $< -o $@; \
 				printf "${GREEN}"; \
 				printf " ${OK}\n"; \
-				printf "${RESET}"; 
+				printf "${RESET}";
 #				$(call progress_barre)
 #				@printf "\n"
 

@@ -1,11 +1,11 @@
 # include "../includes/minishell.h"
 
 void launch_minishell(t_data *data)
-{   
+{
     while (1)
     {
         affiche le prompt (miniishell $)
-        read line 
+        read line
         renviie vers lexer
         decompose par parser
         execute
@@ -13,7 +13,7 @@ void launch_minishell(t_data *data)
 }
 
 void exit_minishell(t_data *data, int exit_status)
-{   
+{
     ft_printf_colour(RED, "Exiting minishell 👋\n");
     if ()
 
@@ -39,8 +39,6 @@ int main(int ac, char **av, char **env)
     return (EXIT_SUCCESS);
 }
 
-// int main()
-// {
-//    printf(PROMPT0 PROMPT1);
-// }
-}
+
+
+

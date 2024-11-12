@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/11 18:52:53 by uzanchi          ###   ########.fr       */
-/*   Updated: 2024/11/11 17:37:20 by uzanchi          ###   ########.fr       */
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
+/*   Updated: 2024/11/12 16:56:11 by memotyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
 /*   Updated: 2024/11/11 17:19:31 by memotyle         ###   ########.fr       */
 /*                                                                            */
@@ -91,12 +91,20 @@ typedef struct s_in_out
 	t_quote		quotes;
 }				t_in_out;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_data
 {
-	char		**env;
-	char		*path;
 
+	char		**path;
+	char		*full_path;
+
+	t_env		*env;
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
@@ -105,6 +113,11 @@ typedef struct s_data
 
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
+int		init_data(t_data *data, char **env);
+void	init_io(t_data *data);
+char	*init_full_path(char **env);
+t_env	*get_env(char **env);
+t_env	*add_env_node(t_env **head, char *env_var);
 
 /*************************       1_lexer       *******************************/
 
