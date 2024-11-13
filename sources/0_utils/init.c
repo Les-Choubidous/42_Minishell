@@ -6,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/13 18:30:23 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/13 18:36:56 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_env *ft_get_env(char **env)
 	//free_env_list(env_list);
 	print_env(env_list);
 	return (env_list);
-}q
+}
 
 int	init_data(t_data *data, char **env)
 {
