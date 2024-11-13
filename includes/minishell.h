@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 17:40:46 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:52:12 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,14 @@ typedef struct s_data
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
 /*init.c*/
-int		init_data(t_data *data, char **env);
-void	init_io(t_data *data);
 char	*init_full_path(char **env);
-t_env	*get_env(char **env);
-t_env	*add_env_node(t_env **head, char *env_var);
+void	init_io(t_data *data);
+
+t_env	*create_node(const char *env_part);
+t_env	*ft_get_env(char **env);
+void	free_env_list(t_env *env_list);
+
+int		init_data(t_data *data, char **env);
 
 /*************************       1_lexer       *******************************/
 
@@ -130,5 +133,6 @@ t_env	*add_env_node(t_env **head, char *env_var);
 
 /*************************        5_free       *******************************/
 
-
+/*************************        6_tests       *******************************/
+void	print_env(t_env *print);
 #endif

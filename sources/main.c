@@ -62,18 +62,18 @@ int main(int ac, char **av, char **env)
 
 	if (init_data(&data, env) == EXIT_FAILURE)
 		printf("error init data\n");
-	t_env *current = data.env;
-	while (current)
-	{
-		printf("ENV = [%s], VALUE = [%s]\n", current->key, current->value);
-		current = current->next;
-	}
-	t_env *current2 = data.env;
-	while (current2)
-	{
-		printf("KEY = [%s]\n", current2->key);
-		current2 = current2->next;
-	}
+	// t_env *current = data.env;
+	// while (current)
+	// {
+	// 	printf("ENV = [%s], VALUE = [%s]\n", current->key, current->value);
+	// 	current = current->next;
+	// }
+	// t_env *current2 = data.env;
+	// while (current2)
+	// {
+	// 	printf("KEY = [%s]\n", current2->key);
+	// 	current2 = current2->next;
+	// }
 	while(i < 3 && av)
 	{
 		prompt = readline("minishell$>");

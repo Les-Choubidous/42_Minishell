@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+         #
+#    By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/12 15:02:22 by memotyle         ###   ########.fr        #
+#    Updated: 2024/11/13 15:50:40 by melinamotyl      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ TRASH	=	🗑
 # Sources
 SRC		=	sources/main.c \
 			sources/0_utils/init.c \
+			sources/6_tests/tests.c \
 			#1_lexer/... \
 			#2_parser/... \
 			#3_executer/... \
