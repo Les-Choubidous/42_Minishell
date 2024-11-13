@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 17:03:32 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:19:26 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,28 @@ static int	is_just_spaces(char *arg)
 
 int	check_user_arg(char *arg)
 {
-	
+	if (!arg)
+		return (EXIT_FAILURE);
+	if (is_just_spaces(arg))
+		return (EXIT_FAILURE);
+	while (ft_isspace(*arg))
+		arg++;
+	if (*arg == '|')
+		return (/*afficher mon propre exit code avec une EXIT FAILURE*//*"Syntax error: unexpected token '|' in argument\n"*/);
+	while (*arg)
+	{
+		if (*arg == '\'' || *arg == '\"')
+		{
+			arg = ft_strchr(arg + 1, *arg);
+			if (!arg)
+				return (/*afficher mon propre exit code avec une EXIT FAILURE*//*"Syntax error: unclosed quote in argument\n"*/);
+			else
+				arg++;
+		}
+		else
+			arg++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 int	lexer(t_data *data)
