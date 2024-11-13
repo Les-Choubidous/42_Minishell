@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 19:12:30 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 19:34:13 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,20 @@
 # define UNEXPECTED_PIPE "Syntax error: unexpected token '|' in argument\n"
 # define UNCLOSED_QUOTE "Syntax error: unclosed quote in argument\n"
 
-/***********************     SAVE SYMBOLS     *********************************/
+/***********************     SAVE SYMBOLS     ********************************/
 
+/**
+ * @brief Identifie le type de redirection dans la chaîne d'entrée.
+ * 
+ * Cette fonction vérifie si la chaîne contient un symbole de redirection
+ * ('>', '>>', '<', '<<') et assigne le type correspondant à `type`. Elle
+ * retourne un pointeur sur la position suivante après la redirection dans la
+ * chaîne.
+ * 
+ * @param str Chaîne à analyser.
+ * @param type Pointeur où stocker le type de redirection détecté.
+ * @return Pointeur sur le caractère après le symbole de redirection.
+ */
 char	*identify_redirection_type(char *str, t_type *type)
 {
 	if (*str == '>')
@@ -42,7 +54,21 @@ char	*identify_redirection_type(char *str, t_type *type)
 	return (str);
 }
 
-char	*lexer_helper(char *str, t_token **new)
+/**
+ * @brief Gère les redirections dans le lexer en analysant le type et les
+ * guillemets.
+ * 
+ * Cette fonction détermine le type de redirection 
+ * (par `identify_redirection_type`), ignore les espaces, et traite les 
+ * guillemets autour de la cible de redirection. Elle crée un nouveau token
+ * pour la redirection et retourne la position après la redirection.
+ * 
+ * @param str Chaîne à analyser.
+ * @param new Pointeur vers un pointeur de token pour y stocker le nouveau
+ *            token.
+ * @return Pointeur après la redirection dans la chaîne.
+ */
+char	*redirection_helper(char *str, t_token **new)
 {
 	t_type type;
 	t_quote quote;
@@ -62,7 +88,8 @@ char	*lexer_helper(char *str, t_token **new)
 		start++;
 	}
 	end = start;
-	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end) && !((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES && *end == '\"')))
+	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end) &&
+		!((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES && *end == '\"')))
 		end++;
 	*new = new_token(start, end, type, quote);
 	if (quote != NO_QUOTES)
@@ -70,6 +97,17 @@ char	*lexer_helper(char *str, t_token **new)
 	return (end);
 }
 
+/**
+ * @brief Gère les symboles dans la chaîne et crée un token correspondant.
+ * 
+ * Vérifie que les symboles sont valides, puis appelle `redirection_helper`
+ * pour traiter les redirections ou crée un token pour un pipe (`|`).
+ * Retourne un pointeur sur le caractère suivant le symbole.
+ * 
+ * @param data Structure principale contenant la liste de tokens.
+ * @param str Chaîne à analyser.
+ * @return Pointeur après le symbole dans la chaîne.
+ */
 char	*save_symbol(t_data *data, char *str)
 {
 	t_token *new;
@@ -78,7 +116,7 @@ char	*save_symbol(t_data *data, char *str)
 	if (check_symbol_at_end_of_string(str) || check_double_tokens(str))
 		return (NULL);
 	if (*str == '<' || *str == '>')
-		ptr = lexer_helper(str, &new);
+		ptr = redirection_helper(str, &new);
 	if (*str == '|')
 	{
 		ptr = str + 1;
@@ -92,6 +130,17 @@ char	*save_symbol(t_data *data, char *str)
 
 /***********************     SAVE WD QOT     *********************************/
 
+/**
+ * @brief Sauvegarde un mot (séquence sans espaces ni symboles) en tant
+ * que token.
+ * 
+ * Parcourt la chaîne jusqu'à un espace ou un symbole et crée un token pour
+ * le mot trouvé, en l'ajoutant à la liste des tokens.
+ * 
+ * @param data Structure principale contenant la liste de tokens.
+ * @param str Chaîne à analyser.
+ * @return Pointeur après le mot dans la chaîne.
+ */
 char	*save_word(t_data *data, char *str)
 {
 	char *end;
@@ -106,6 +155,18 @@ char	*save_word(t_data *data, char *str)
 	lst_token_add_back(data, new);
 	return (end);
 }
+
+/**
+ * @brief Sauvegarde une chaîne entre guillemets en tant que token.
+ * 
+ * Identifie la fin de la citation (simple ou double), crée un token pour le
+ * texte entre guillemets et l'ajoute à la liste de tokens.
+ * 
+ * @param data Structure principale contenant la liste de tokens.
+ * @param str Chaîne à analyser.
+ * @param quote_symbol Caractère de guillemet (simple ou double).
+ * @return Pointeur après la fin de la citation.
+ */
 char	*save_quote(t_data *data, char *str, char quote_symbol)
 {
 	char *end_ptr;
@@ -126,6 +187,15 @@ char	*save_quote(t_data *data, char *str, char quote_symbol)
 
 /***********************     LEXER UTILS     *********************************/
 
+/**
+ * @brief Vérifie si un symbole de redirection est en fin de chaîne.
+ * 
+ * Affiche une erreur de syntaxe si un symbole de redirection est suivi de
+ * rien.
+ * 
+ * @param str Chaîne à analyser.
+ * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
+ */
 int	check_symbol_at_end_of_string(char *str)
 {
 	if ((*str == '<' || *str == '>') && *str == *str + 1 && !*(str + 2))
@@ -141,6 +211,15 @@ int	check_symbol_at_end_of_string(char *str)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Vérifie la validité des symboles consécutifs.
+ * 
+ * Vérifie si des symboles de redirection sont placés de manière correcte,
+ * retourne une erreur en cas de séquence invalide.
+ * 
+ * @param str Chaîne à analyser.
+ * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
+ */
 int	check_double_tokens(char *str)
 {
 	if (!ft_strchr(SUPPORTED_SYMBOLS, *(str + 1)))
@@ -158,6 +237,19 @@ int	check_double_tokens(char *str)
 	}
 }
 
+/**
+ * @brief Crée un nouveau token pour l'analyse lexicale.
+ * 
+ * Alloue un nouveau `t_token`, copie la valeur entre `start` et `end`,
+ * et initialise le type et le type de guillemet. Retourne le token créé
+ * ou `NULL` en cas d'échec.
+ * 
+ * @param start Début de la valeur dans la chaîne.
+ * @param end Fin de la valeur dans la chaîne.
+ * @param type Type de token (ex: ARG, PIPE, etc.).
+ * @param quote Type de guillemet (simple, double, ou aucun).
+ * @return Pointeur vers le nouveau token ou `NULL` en cas d'erreur.
+ */
 t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 {
 	t_token *new;
@@ -187,6 +279,14 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 	return (new);
 }
 
+/**
+ * @brief Ajoute un token à la fin de la liste chaînée des tokens.
+ * 
+ * Traverse la liste de tokens dans `data` et ajoute `new` à la fin.
+ * 
+ * @param data Structure principale contenant la liste de tokens.
+ * @param new Token à ajouter.
+ */
 void	lst_token_add_back(t_data *data, t_token *new)
 {
 	t_token *tmp;
@@ -209,6 +309,15 @@ void	lst_token_add_back(t_data *data, t_token *new)
 
 /***********************     LEXER MAIN      *********************************/
 
+/**
+ * @brief Vérifie si une chaîne ne contient que des espaces.
+ * 
+ * Parcourt `arg` et retourne `1` si la chaîne est constituée uniquement
+ * d'espaces, sinon `0`.
+ * 
+ * @param arg Chaîne à analyser.
+ * @return `1` si la chaîne contient uniquement des espaces, `0` sinon.
+ */
 static int	is_just_spaces(char *arg)
 {
 	while (*arg)
@@ -219,7 +328,16 @@ static int	is_just_spaces(char *arg)
 	return (1);
 }
 
-
+/**
+ * @brief Vérifie la validité des arguments utilisateur.
+ * 
+ * Vérifie si `arg` est vide ou ne contient que des espaces, ou si elle
+ * commence par un pipe, et gère les erreurs de syntaxe pour les quotes
+ * non fermées.
+ * 
+ * @param arg Chaîne d'arguments.
+ * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
+ */
 int	check_user_arg(char *arg)
 {
 	if (!arg)
@@ -246,6 +364,17 @@ int	check_user_arg(char *arg)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Fonction principale du lexer.
+ * 
+ * Parcourt `data->line` pour analyser chaque caractère et identifier les mots,
+ * redirections, pipes, ou citations, en créant des tokens correspondants et en
+ * les ajoutant à la liste des tokens.
+ * 
+ * @param data Structure principale contenant la ligne de commande et la liste
+ * des tokens.
+ * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
+ */
 int	lexer(t_data *data)
 {
 	char *str;
