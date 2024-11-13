@@ -6,15 +6,18 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 18:47:09 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 19:12:30 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+# define UNEXPECTED_PIPE "Syntax error: unexpected token '|' in argument\n"
+# define UNCLOSED_QUOTE "Syntax error: unclosed quote in argument\n"
+
 /***********************     SAVE SYMBOLS     *********************************/
 
-char *identify_redirection_type(char *str, t_type *type)
+char	*identify_redirection_type(char *str, t_type *type)
 {
 	if (*str == '>')
 	{
@@ -39,7 +42,7 @@ char *identify_redirection_type(char *str, t_type *type)
 	return (str);
 }
 
-char *lexer_helper(char *str, t_token **new)
+char	*lexer_helper(char *str, t_token **new)
 {
 	t_type type;
 	t_quote quote;
@@ -67,12 +70,12 @@ char *lexer_helper(char *str, t_token **new)
 	return (end);
 }
 
-char *save_symbol(t_data *data, char *str)
+char	*save_symbol(t_data *data, char *str)
 {
 	t_token *new;
 	char *ptr;
 
-	if (/*truc qui check la fin de la string || un truc qui check les doubles tokens;	les deux prennent str en parametre*/)
+	if (check_symbol_at_end_of_string(str) || check_double_tokens(str))
 		return (NULL);
 	if (*str == '<' || *str == '>')
 		ptr = lexer_helper(str, &new);
@@ -155,7 +158,7 @@ int	check_double_tokens(char *str)
 	}
 }
 
-t_token *new_token(char *start, char *end, t_type type, t_quote quote)
+t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 {
 	t_token *new;
 
@@ -184,7 +187,7 @@ t_token *new_token(char *start, char *end, t_type type, t_quote quote)
 	return (new);
 }
 
-void lst_token_add_back(t_data *data, t_token *new)
+void	lst_token_add_back(t_data *data, t_token *new)
 {
 	t_token *tmp;
 
@@ -206,7 +209,7 @@ void lst_token_add_back(t_data *data, t_token *new)
 
 /***********************     LEXER MAIN      *********************************/
 
-static int is_just_spaces(char *arg)
+static int	is_just_spaces(char *arg)
 {
 	while (*arg)
 	{
@@ -217,7 +220,7 @@ static int is_just_spaces(char *arg)
 }
 
 
-int check_user_arg(char *arg)
+int	check_user_arg(char *arg)
 {
 	if (!arg)
 		return (EXIT_FAILURE);
@@ -226,14 +229,14 @@ int check_user_arg(char *arg)
 	while (ft_isspace(*arg))
 		arg++;
 	if (*arg == '|')
-		return (/*afficher mon propre exit code avec une EXIT FAILURE*/ /*"Syntax error: unexpected token '|' in argument\n"*/);
+		return (ft_printf_exit_code(UNEXPECTED_PIPE, EXIT_FAILURE));
 	while (*arg)
 	{
 		if (*arg == '\'' || *arg == '\"')
 		{
 			arg = ft_strchr(arg + 1, *arg);
-			if (!arg)
-				return (/*afficher mon propre exit code avec une EXIT FAILURE*/ /*"Syntax error: unclosed quote in argument\n"*/);
+			if (arg == NULL)
+				return (ft_printf_exit_code(UNCLOSED_QUOTE, EXIT_FAILURE));
 			else
 				arg++;
 		}
@@ -243,37 +246,25 @@ int check_user_arg(char *arg)
 	return (EXIT_SUCCESS);
 }
 
-
-int lexer(t_data *data)
+int	lexer(t_data *data)
 {
 	char *str;
 
 	str = data->line;
-	if (check_user_arg(str /*ou data->line*/))
+	if (check_user_arg(str))
 		return (EXIT_FAILURE);
 	while (*str)
 	{
 		if (ft_isspace(*str))
 			str++;
 		else if (ft_strchr(SUPPORTED_SYMBOLS, *str))
-		{
 			str = save_symbol(data, str);
-			if (!str)
-				return (EXIT_FAILURE);
-		}
 		else if (*str == '\'' || *str == '\"')
-		{
-			str = save_quote(data, str);
-			if (!str)
-				return (EXIT_FAILURE);
-		}
+			str = save_quote(data, str + 1, *str);
 		else
-		{
 			str = save_word(data, str);
-			if (!str)
-				return (EXIT_FAILURE);
-		}
-		if (str == NULL)
+		if (!str)
 			return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
