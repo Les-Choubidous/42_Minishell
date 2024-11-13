@@ -6,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/13 17:50:50 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/13 18:30:23 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,22 @@ void	add_env_lst(t_env **list, char *key, char *value)
 	{
 		temp = *list;
 		while (temp->next)
-		temp = temp->next;
+			temp = temp->next;
 		temp->next = new_node;
+	}
+}
+
+void free_env_list(t_env *list)
+{
+	t_env *temp;
+
+	while (list)
+	{
+		temp = list->next;
+		free(list->key);
+		free(list->value);
+		free(list);
+		list = temp;
 	}
 }
 
@@ -85,12 +99,19 @@ t_env *ft_get_env(char **env)
 			y++;
 		key = ft_substr(env[i], 0, y);
 		value = ft_substr(env[i], y + 1, ft_strlen(env[y]));
+		// if (!key || !value)
+		// {
+		// 	free(key);
+		// 	free(value);
+		// 	return (NULL);
+		// }
 		add_env_lst(&env_list, key, value);
 		i++;
 	}
+	//free_env_list(env_list);
 	print_env(env_list);
 	return (env_list);
-}
+}q
 
 int	init_data(t_data *data, char **env)
 {

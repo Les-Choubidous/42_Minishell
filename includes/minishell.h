@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
+/*   By: melina <melina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 17:40:37 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/13 18:03:57 by melina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	init_io(t_data *data);
 void	add_env_lst(t_env **list, char *key, char *value);
 t_env	*ft_get_env(char **env);
 
-
+void	free_env_list(t_env *list);
 int		init_data(t_data *data, char **env);
 
 /*************************       1_lexer       *******************************/
