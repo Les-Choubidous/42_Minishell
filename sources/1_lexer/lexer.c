@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 17:19:26 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:47:09 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /***********************     SAVE SYMBOLS     *********************************/
 
-char	*identify_redirection_type(char *str, t_type *type)
+char *identify_redirection_type(char *str, t_type *type)
 {
 	if (*str == '>')
 	{
@@ -39,12 +39,12 @@ char	*identify_redirection_type(char *str, t_type *type)
 	return (str);
 }
 
-char	*lexer_helper(char *str, t_token **new)
+char *lexer_helper(char *str, t_token **new)
 {
-	t_type	type;
-	t_quote	quote;
-	char	*start;
-	char	*end;
+	t_type type;
+	t_quote quote;
+	char *start;
+	char *end;
 
 	start = identify_redirection_type(str, &type);
 	while (*start && ft_isspace(*start))
@@ -67,10 +67,10 @@ char	*lexer_helper(char *str, t_token **new)
 	return (end);
 }
 
-char	*save_symbol(t_data *data, char *str)
+char *save_symbol(t_data *data, char *str)
 {
-	t_token	*new;
-	char	*ptr;
+	t_token *new;
+	char *ptr;
 
 	if (/*truc qui check la fin de la string || un truc qui check les doubles tokens;	les deux prennent str en parametre*/)
 		return (NULL);
@@ -89,20 +89,73 @@ char	*save_symbol(t_data *data, char *str)
 
 /***********************     SAVE WD QOT     *********************************/
 
-char	*save_word()
+char	*save_word(t_data *data, char *str)
 {
-	
-}
+	char *end;
+	t_token *new;
 
-char	*save_quote()
+	end = str;
+	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end))
+		end++;
+	new = new_token(str, end, ARG, NO_QUOTES);
+	if (!new)
+		return (NULL);
+	lst_token_add_back(data, new);
+	return (end);
+}
+char	*save_quote(t_data *data, char *str, char quote_symbol)
 {
-	
+	char *end_ptr;
+	t_token *new;
+
+	end_ptr = str;
+	while (*end_ptr && *end_ptr != quote_symbol)
+		end_ptr++;
+	if (quote_symbol == '\'')
+		new = new_token(str + 1, end_ptr, ARG, SPL_QUOTES);
+	else
+		new = new_token(str + 1, end_ptr, ARG, DBL_QUOTES);
+	if (!new)
+		return (NULL);
+	lst_token_add_back(data, new);
+	return (end_ptr + 1);
 }
 
 /***********************     LEXER UTILS     *********************************/
 
+int	check_symbol_at_end_of_string(char *str)
+{
+	if ((*str == '<' || *str == '>') && *str == *str + 1 && !*(str + 2))
+	{
+		printf("Syntax error: excepted token after %c%c symbol\n", *str, *str);
+		return (EXIT_FAILURE);
+	}
+	if (!*str + 1)
+	{
+		printf("Syntax error: excepted token after %c symbol\n", *str);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
 
-t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
+int	check_double_tokens(char *str)
+{
+	if (!ft_strchr(SUPPORTED_SYMBOLS, *(str + 1)))
+		return (EXIT_SUCCESS);
+	else
+	{
+		if ((*str == '<' && *(str + 1) == '<') || (*str == '>' && *(str + 1) == '>'))
+			return (EXIT_SUCCESS);
+		else
+		{
+			printf("Syntax error: unexpected token %c after token %c\n",
+				*str + 1, *str);
+			return (EXIT_FAILURE);
+		}
+	}
+}
+
+t_token *new_token(char *start, char *end, t_type type, t_quote quote)
 {
 	t_token *new;
 
@@ -131,9 +184,9 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 	return (new);
 }
 
-void	lst_token_add_back(t_data *data, t_token *new)
+void lst_token_add_back(t_data *data, t_token *new)
 {
-	t_token	*tmp;
+	t_token *tmp;
 
 	if (!data->token)
 	{
@@ -153,7 +206,7 @@ void	lst_token_add_back(t_data *data, t_token *new)
 
 /***********************     LEXER MAIN      *********************************/
 
-static int	is_just_spaces(char *arg)
+static int is_just_spaces(char *arg)
 {
 	while (*arg)
 	{
@@ -163,7 +216,8 @@ static int	is_just_spaces(char *arg)
 	return (1);
 }
 
-int	check_user_arg(char *arg)
+
+int check_user_arg(char *arg)
 {
 	if (!arg)
 		return (EXIT_FAILURE);
@@ -172,14 +226,14 @@ int	check_user_arg(char *arg)
 	while (ft_isspace(*arg))
 		arg++;
 	if (*arg == '|')
-		return (/*afficher mon propre exit code avec une EXIT FAILURE*//*"Syntax error: unexpected token '|' in argument\n"*/);
+		return (/*afficher mon propre exit code avec une EXIT FAILURE*/ /*"Syntax error: unexpected token '|' in argument\n"*/);
 	while (*arg)
 	{
 		if (*arg == '\'' || *arg == '\"')
 		{
 			arg = ft_strchr(arg + 1, *arg);
 			if (!arg)
-				return (/*afficher mon propre exit code avec une EXIT FAILURE*//*"Syntax error: unclosed quote in argument\n"*/);
+				return (/*afficher mon propre exit code avec une EXIT FAILURE*/ /*"Syntax error: unclosed quote in argument\n"*/);
 			else
 				arg++;
 		}
@@ -189,9 +243,10 @@ int	check_user_arg(char *arg)
 	return (EXIT_SUCCESS);
 }
 
-int	lexer(t_data *data)
+
+int lexer(t_data *data)
 {
-	char	*str;
+	char *str;
 
 	str = data->line;
 	if (check_user_arg(str /*ou data->line*/))
