@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 19:01:52 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:19:05 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,37 @@ typedef struct s_data
 
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
+/*init.c*/
+
 /*signals.c*/
-void	reset_line(int signum);
-void	display_new_line(int signum);
-void	signal_interactive(void);
-void	signal_non_interacitve(void);
+void			reset_line(int signum);
+void			display_new_line(int signum);
+void			signal_interactive(void);
+void			signal_non_interacitve(void);
+
+/*utils.c*/
+int				ft_printf_exit_code(char *str, int exit_code);
 
 /*************************       1_lexer       *******************************/
+/*save_symbols.c*/
+char			*identify_redirection_type(char *str, t_type *type);
+char			*redirection_helper(char *str, t_token **new);
+char			*save_symbol(t_data *data, char *str);
+
+/*save_wd_qt.c*/
+char			*save_word(t_data *data, char *str);
+char			*save_quote(t_data *data, char *str, char quote);
+
+/*lexer_utils.c*/
+int				check_symbol_at_end_of_string(char *str);
+int				check_double_tokens(char *str);
+t_token			*new_token(char *start, char *end, t_type type, t_quote quote);
+void			lst_token_add_back(t_data *data, t_token *new);
+
+/*lexer.c*/
+static int		is_just_spaces(char *str);
+int				check_user_arg(char *arg);
+int				lexer(t_data *data);
 
 /*************************       2_parser      *******************************/
 
