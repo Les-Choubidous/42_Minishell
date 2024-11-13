@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: melina <melina@student.42.fr>              +#+  +:+       +#+         #
+#    By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/13 18:07:53 by melina           ###   ########.fr        #
+#    Updated: 2024/11/13 18:52:19 by melinamotyl      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	#-Wall -Werror -Wextra -g -MMD -MP #-fsanitize=address
+CFLAGS		=	#-Wall -Werror -Wextra -g -MMD -MP -fsanitize=address
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
