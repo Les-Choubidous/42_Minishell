@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/12 17:28:02 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/13 20:23:04 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,16 @@ TRASH	=	🗑
 	
 # Sources
 SRC		=	sources/main.c \
-			sources/0_utils/signals.c 
-#			1_lexer/... \
-			2_parser/... \
-			3_executer/... \
-			4_builtins/... \
-			5_free/... 
+			sources/0_utils/signals.c \
+			sources/0_utils/utils.c \
+			sources/1_lexer/save_symbols.c \
+			sources/1_lexer/save_wd_qt.c \
+			sources/1_lexer/lexer_utils.c \
+			sources/1_lexer/lexer_main.c \
+#			sources/2_parser/... \
+			sources/3_executer/... \
+			sources/4_builtins/... \
+			sources/5_free/... 
 
 SRCS	=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NB	=	$(words ${SRCS})
