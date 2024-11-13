@@ -7,7 +7,7 @@ void	print_env(t_env *print)
 	temp = print;
 	while (temp)
 	{
-		printf("%s\n", temp->value);
+		printf("KEY: %s, VALUE: %s\n", temp->key, temp->value);
 		temp = temp->next;
 	}
 }

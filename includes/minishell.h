@@ -6,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 15:52:12 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/13 17:40:37 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ typedef struct s_data
 char	*init_full_path(char **env);
 void	init_io(t_data *data);
 
-t_env	*create_node(const char *env_part);
+void	add_env_lst(t_env **list, char *key, char *value);
 t_env	*ft_get_env(char **env);
-void	free_env_list(t_env *env_list);
+
 
 int		init_data(t_data *data, char **env);
 
@@ -135,4 +135,5 @@ int		init_data(t_data *data, char **env);
 
 /*************************        6_tests       *******************************/
 void	print_env(t_env *print);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/13 15:58:08 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/13 17:40:48 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,72 +47,49 @@ void	init_io(t_data *data)
 	}
 }
 
-t_env *create_node(const char *env_part)
+void	add_env_lst(t_env **list, char *key, char *value)
 {
 	t_env	*new_node;
-	char	*equal_pos;
-	size_t	key_len;
+	t_env	*temp;
 
-	new_node = malloc(sizeof(t_env));
+	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
-		return NULL;
-
-	equal_pos = ft_strchr(env_part, '=');
-	if (!equal_pos)
-	{
-		free(new_node);
-		return (NULL);
-	}
-	key_len = equal_pos - env_part;
-
-	new_node ->key = ft_substr(env_part, 0, key_len);
-
-	new_node->value = ft_strdup(equal_pos + 1);
-	if (!new_node->value)
-	{
-		free(new_node->key);
-		free(new_node->value);
-		return (NULL);
-	}
+		return ;
+	new_node->key = key;
+	new_node->value = value;
 	new_node->next = NULL;
-	return (new_node);
+	if (!*list)
+		*list = new_node;
+	else
+	{
+		temp = *list;
+		while (temp->next)
+		temp = temp->next;
+		temp->next = new_node;
+	}
 }
 
 t_env *ft_get_env(char **env)
 {
-	t_env *env_list = NULL;
-	t_env *new_node = NULL;
-	t_env *last_node = NULL;
-	int i = 0;
+	t_env	*env_list = NULL;
+	char	*key;
+	char	*value;
+	int		i;
+	int		y;
 
+	i = 0;
 	while (env[i])
 	{
-		new_node = create_node(env[i]);
-		if (!new_node)
-		{
-			free_env_list(env_list);
-			return (NULL);
-		}
-		if (env_list)
-			env_list = new_node;
-		else
-			last_node->next = new_node;
-		last_node = new_node;
+		y = 0;
+		while(env[i][y] && env[i][y] != '=')
+			y++;
+		key = ft_substr(env[i], 0, y);
+		value = ft_substr(env[i], y + 1, ft_strlen(env[y]));
+		add_env_lst(&env_list, key, value);
 		i++;
 	}
-	return env_list;
-}
-void	free_env_list(t_env *env_list)
-{
-	t_env	*temp;
-	while(env_list)
-	{
-		temp = env_list;
-		env_list = env_list->next;
-		free(temp->key);
-		free(temp->value);
-		free(temp);
-	}
+	print_env(env_list);
+	return (env_list);
 }
 
 int	init_data(t_data *data, char **env)
