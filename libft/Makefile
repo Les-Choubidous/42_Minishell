@@ -1,7 +1,7 @@
 # Variables
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -MMD -MP
 RM = rm -rf
 AR = ar rcs
 
@@ -92,3 +92,6 @@ entry_message:
 				@echo "${YELLOW}${INFO} ${SRC_COUNT} files of the library:\n${GREEN}Compilation :${RESET}"
 
 .PHONY:			all clean fclean re entry_message
+
+# Inclusion des fichiers de dépendances
+-include $(DEPS)

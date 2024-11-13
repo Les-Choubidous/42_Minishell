@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 23:35:11 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 16:40:49 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_list
 	char			*value;
 	t_quote			quote;
 	struct s_list	*next;
-}						t_list;
+}					t_list;
 
 typedef struct s_commands
 {
