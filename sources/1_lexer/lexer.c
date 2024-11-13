@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 16:45:40 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:03:32 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,34 @@ int	check_user_arg(char *arg)
 
 int	lexer(t_data *data)
 {
-	
+	char	*str;
+
+	str = data->line;
+	if (check_user_arg(str /*ou data->line*/))
+		return (EXIT_FAILURE);
+	while (*str)
+	{
+		if (ft_isspace(*str))
+			str++;
+		else if (ft_strchr(SUPPORTED_SYMBOLS, *str))
+		{
+			str = save_symbol(data, str);
+			if (!str)
+				return (EXIT_FAILURE);
+		}
+		else if (*str == '\'' || *str == '\"')
+		{
+			str = save_quote(data, str);
+			if (!str)
+				return (EXIT_FAILURE);
+		}
+		else
+		{
+			str = save_word(data, str);
+			if (!str)
+				return (EXIT_FAILURE);
+		}
+		if (str == NULL)
+			return (EXIT_FAILURE);
+	}
 }
