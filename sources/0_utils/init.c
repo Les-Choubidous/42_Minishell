@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/13 20:11:09 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/14 10:58:47 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +17,7 @@ char	*init_full_path(char **env)
 	int		i;
 	char	*full_path;
 
-	i = 0;````````
+	i = 0;
 	full_path = NULL;
 	while(env[i])
 	{
@@ -126,5 +125,3 @@ int	init_data(t_data *data, char **env)
 	init_io(data);
 	return (EXIT_SUCCESS);
 }
-=======
->>>>>>> parent of 0994fb9 (Merge branch 'Melina' into Ugo)
