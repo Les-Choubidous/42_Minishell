@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:43 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:16:57 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 19:05:33 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	check_double_tokens(char *str)
 		return (EXIT_SUCCESS);
 	else
 	{
-		if ((*str == '<' && *(str + 1) == '<') || (*str == '>' && *(str + 1) == '>'))
+		if ((*str == '<' && *(str + 1) == '<')
+			|| (*str == '>' && *(str + 1) == '>'))
 			return (EXIT_SUCCESS);
 		else
 		{
@@ -77,7 +78,7 @@ int	check_double_tokens(char *str)
  */
 t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 {
-	t_token *new;
+	t_token	*new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
@@ -87,13 +88,14 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 	}
 	if (start)
 	{
-		new->value = ft_substr(start, 0, end - start); // ou bien = malloc(sizeof(char) * (end - start + 1));
+		new->value = ft_substr(start, 0, end - start);// ou bien = malloc(sizeof(char) * (end - start + 1));
 		if (!new->value)
 		{
 			perror("token value malloc");
 			free(new);
 			return (NULL);
 		}
+		printf("\tVALUE : %s\n", new->value);
 	}
 	else
 		new->value = NULL;
@@ -114,13 +116,13 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
  */
 void	lst_token_add_back(t_data *data, t_token *new)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	if (!data->token)
 	{
 		new->prev = NULL;
 		data->token = new;
-		return;
+		return ;
 	}
 	else
 	{

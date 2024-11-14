@@ -3,14 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/14 11:21:50 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/14 17:16:26 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/**
+ * @brief Crée une liste chaînée des variables d'environnement.
+ * 
+ * La fonction parcourt le tableau `env` et, pour chaque variable d'env,
+ * extrait la clé (avant le signe `=`) et la valeur (après le signe `=`).
+ * Elle crée ensuite un nœud pr chaque variable et l'ajoute à 1 lst `env_list`.
+ * La fonction retourne un pointeur vers le début de cette liste chaînée.
+ * 
+ * @param env Tableau de chaînes représentant les variables d'environnement.
+ * @return Pointeur vers la liste chaînée `env_list` contenant les variables
+ *         d'environnement sous forme de paires clé-valeur.
+ */
+
+t_env	*ft_get_env(char **env)
+{
+	t_env	*env_list;
+	char	*key;
+	char	*value;
+	int		i;
+	int		y;
+
+	env_list = NULL;
+	i = 0;
+	while (env[i])
+	{
+		y = 0;
+		while (env[i][y] && env[i][y] != '=')
+			y++;
+		key = ft_substr(env[i], 0, y);
+		value = ft_substr(env[i], y + 1, ft_strlen(env[i]) - y - 1);
+		add_env_lst(&env_list, key, value);
+		i++;
+	}
+	//print_env(env_list);
+	return (env_list);
+}
+
+/**
+ * @brief Initialise la variable `full_path` avec le chemin d'accès complet.
+ * 
+ * Parcourt le tableau `env` pour trouver la variable d'environnement `PATH`.
+ * Lorsque `PATH` est trouvée, extrait le contenu après le signe `=` et le
+ * duplique dans `full_path`. Retourne un pointeur vers `full_path` ou `NULL`
+ * en cas d'erreur.
+ * 
+ * @param env Tableau de chaînes représentant les variables d'environnement.
+ * @return Pointeur vers `full_path` contenant le chemin d'accès complet, 
+ *         ou `NULL` si la duplication échoue ou si `PATH` n'est pas trouvé.
+ */
 
 char	*init_full_path(char **env)
 {
@@ -19,7 +68,7 @@ char	*init_full_path(char **env)
 
 	i = 0;
 	full_path = NULL;
-	while(env[i])
+	while (env[i])
 	{
 		if (ft_strnstr(env[i], "PATH=", 5))
 		{
@@ -32,6 +81,19 @@ char	*init_full_path(char **env)
 	// printf("%s\n", full_path);
 	return (full_path);
 }
+
+/**
+ * @brief Initialise les structures d'entrée et de sortie pour `data`.
+ * 
+ * La fonction initialise les champs de la structure `input` et `output`
+ * de `data`. `input` est configuré avec un type `INPUT`, une valeur
+ * `NULL`, et un descripteur de fichier par défaut `0` (entrée standard).
+ * `output` est configuré avec un type `OUTPUT`, une valeur `NULL`, et un
+ * descripteur de fichier par défaut `1` (sortie standard).
+ * 
+ * @param data Structure contenant les champs d'entrée 
+ * et de sortie à initialiser.
+ */
 
 void	init_io(t_data *data)
 {
@@ -46,6 +108,18 @@ void	init_io(t_data *data)
 		data->output.fd = 1;
 	}
 }
+
+/**
+ * @brief Ajoute un nouveau nœud à la fin de la lst des variables d'env.
+ * 
+ * Cette fonction crée un nouveau nœud `new_node` contenant une paire clé-valeur
+ * `key` et `value` et l'ajoute à la fin de la liste chaînée `list`. 
+ * Si la liste est vide, le nouveau nœud devient le 1er elmt de la liste.
+ * 
+ * @param list Pointeur vers le pointeur de la liste chaînée `t_env`.
+ * @param key Clé de la variable d'environnement.
+ * @param value Valeur de la variable d'environnement.
+ */
 
 void	add_env_lst(t_env **list, char *key, char *value)
 {
@@ -69,49 +143,11 @@ void	add_env_lst(t_env **list, char *key, char *value)
 	}
 }
 
-void free_env_list(t_env *list)
-{
-	t_env *temp;
-
-	while (list)
-	{
-		temp = list->next;
-		free(list->key);
-		free(list->value);
-		free(list);
-		list = temp;
-	}
-}
-
-t_env *ft_get_env(char **env)
-{
-	t_env	*env_list = NULL;
-	char	*key;
-	char	*value;
-	int		i;
-	int		y;
-
-	i = 0;
-	while (env[i])
-	{
-		y = 0;
-		while(env[i][y] && env[i][y] != '=')
-			y++;
-		key = ft_substr(env[i], 0, y);
-		value = ft_substr(env[i], y + 1, ft_strlen(env[y]));
-		add_env_lst(&env_list, key, value);
-		i++;
-	}
-	print_env(env_list);
-	return (env_list);
-}
-
 int	init_data(t_data *data, char **env)
 {
 	data->full_path = init_full_path(env);
 	if (!data->full_path)
 		return (EXIT_FAILURE);
-
 	data->env = ft_get_env(env);
 	if (!data->env)
 		return (EXIT_FAILURE);

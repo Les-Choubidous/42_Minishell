@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_wd_qt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:23 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:18:21 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:43:35 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,24 @@
  * @param str Chaîne à analyser.
  * @return Pointeur après le mot dans la chaîne.
  */
-char	*save_word(t_data *data, char *str)
+char	*save_word(t_data *data, char *str, int *is_new_command)
 {
-	char *end;
-	t_token *new;
+	char	*end;
+	t_token	*new;
+	t_type	type;
 
 	end = str;
 	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end))
 		end++;
-	new = new_token(str, end, ARG, NO_QUOTES);
+	if (*is_new_command)
+        type = CMD;
+    else
+        type = ARG;
+	new = new_token(str, end, type, NO_QUOTES);
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);
+	is_new_command = 0;
 	return (end);
 }
 
@@ -49,20 +55,38 @@ char	*save_word(t_data *data, char *str)
  * @param quote_symbol Caractère de guillemet (simple ou double).
  * @return Pointeur après la fin de la citation.
  */
-char	*save_quote(t_data *data, char *str, char quote_symbol)
+char *save_quote(t_data *data, char *str, int *is_new_command)
 {
-	char *end_ptr;
-	t_token *new;
+    char quote_symbol;
+    char *end_ptr;
+    t_token *new;
+    t_type type;
+    t_quote quote_type;
 
-	end_ptr = str;
-	while (*end_ptr && *end_ptr != quote_symbol)
-		end_ptr++;
-	if (quote_symbol == '\'')
-		new = new_token(str + 1, end_ptr, ARG, SPL_QUOTES);
-	else
-		new = new_token(str + 1, end_ptr, ARG, DBL_QUOTES);
-	if (!new)
-		return (NULL);
-	lst_token_add_back(data, new);
-	return (end_ptr + 1);
+    quote_symbol = *str;
+    str++; // Passe le guillemet ouvrant
+    end_ptr = str;
+    while (*end_ptr && *end_ptr != quote_symbol)
+        end_ptr++;
+    if (!*end_ptr)
+    {
+        printf("Syntax error: unclosed quote\n");
+        return (NULL);
+    }
+    // Détermination du type de quote
+    if (quote_symbol == '\'')
+        quote_type = SPL_QUOTES;
+    else
+        quote_type = DBL_QUOTES;
+    // Détermination du type de token
+    if (*is_new_command)
+        type = CMD;
+    else
+        type = ARG;
+    new = new_token(str, end_ptr, type, quote_type);
+    if (!new)
+        return (NULL);
+    lst_token_add_back(data, new);
+    *is_new_command = 0; // Mise à jour de is_new_command
+    return (end_ptr + 1); // Passe le guillemet fermant
 }

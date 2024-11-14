@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
+#    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/13 20:23:04 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/14 18:42:49 by parallels        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,10 +71,12 @@ TRASH	=	🗑
 SRC		=	sources/main.c \
 			sources/0_utils/signals.c \
 			sources/0_utils/utils.c \
+			sources/0_utils/init.c \
 			sources/1_lexer/save_symbols.c \
 			sources/1_lexer/save_wd_qt.c \
 			sources/1_lexer/lexer_utils.c \
 			sources/1_lexer/lexer_main.c \
+			sources/1_lexer/utils_tests.c \
 #			sources/2_parser/... \
 			sources/3_executer/... \
 			sources/4_builtins/... \

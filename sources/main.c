@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 11:12:50 by melinamotyl       #+#    #+#             */
-/*   Updated: 2024/11/14 11:28:02 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/14 19:24:23 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void	launch_minishell(t_data *data)
 		signal_non_interacitve();
 		if (ft_strlen(data->line))
 			add_history(data->line);
+		/**********************************************/
+		lexer(data);
+		free_token_list(data->token);
+		data->token = NULL;
+		free(data->line);
+		data->line = NULL;
+		/**********************************************/
 		/*if (data->line[0] != '\0')
 			add_history(data->line);
 		if (lexer(data) == EXIT_FAILURE || parser(data) == EXIT_FAILURE ||
@@ -51,7 +58,7 @@ void	exit_minishell(t_data *data, int exit_status)
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-
+	
 	(void)av;
 	if (ac != 1)
 	{

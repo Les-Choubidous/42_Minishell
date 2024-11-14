@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_symbols.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:12:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:15:18 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:38:18 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ char	*identify_redirection_type(char *str, t_type *type)
  */
 char	*redirection_helper(char *str, t_token **new)
 {
-	t_type type;
-	t_quote quote;
-	char *start;
-	char *end;
+	t_type	type;
+	t_quote	quote;
+	char	*start;
+	char	*end;
 
 	start = identify_redirection_type(str, &type);
 	while (*start && ft_isspace(*start))
@@ -83,8 +83,8 @@ char	*redirection_helper(char *str, t_token **new)
 		start++;
 	}
 	end = start;
-	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end) &&
-		!((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES && *end == '\"')))
+	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end)
+		&& !((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES && *end == '\"')))
 		end++;
 	*new = new_token(start, end, type, quote);
 	if (quote != NO_QUOTES)
@@ -103,20 +103,26 @@ char	*redirection_helper(char *str, t_token **new)
  * @param str Chaîne à analyser.
  * @return Pointeur après le symbole dans la chaîne.
  */
-char	*save_symbol(t_data *data, char *str)
+char	*save_symbol(t_data *data, char *str, int *is_new_command)
 {
-	t_token *new;
-	char *ptr;
+	t_token	*new;
+	char	*ptr;
 
 	if (check_symbol_at_end_of_string(str) || check_double_tokens(str))
 		return (NULL);
 	if (*str == '<' || *str == '>')
 		ptr = redirection_helper(str, &new);
-	if (*str == '|')
+	else if (*str == '|')
 	{
 		ptr = str + 1;
 		new = new_token(NULL, NULL, PIPE, NO_QUOTES);
+		*is_new_command = 1;
 	}
+	else
+    {
+        printf("Syntax error: unknown symbol %c\n", *str);
+        return (NULL);
+    }
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);

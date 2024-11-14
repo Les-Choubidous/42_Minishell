@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:18:01 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:43:59 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	check_user_arg(char *arg)
 			arg = ft_strchr(arg + 1, *arg);
 			if (arg == NULL)
 				return (ft_printf_exit_code(UNCLOSED_QUOTE, EXIT_FAILURE));
-				/*return(printf("Syntax error: unclosed quote in argument\n"), 1); les deux se correspondent */
 			else
 				arg++;
 		}
@@ -82,8 +81,9 @@ int	check_user_arg(char *arg)
  */
 int	lexer(t_data *data)
 {
-	char *str;
-
+	char	*str;
+	int		is_new_command = 1;
+	
 	str = data->line;
 	if (check_user_arg(str))
 		return (EXIT_FAILURE);
@@ -92,13 +92,18 @@ int	lexer(t_data *data)
 		if (ft_isspace(*str))
 			str++;
 		else if (ft_strchr(SUPPORTED_SYMBOLS, *str))
-			str = save_symbol(data, str);
+		{
+			str = save_symbol(data, str, &is_new_command);
+			if (*(str - 1) == '|')
+                is_new_command = 1;
+		}
 		else if (*str == '\'' || *str == '\"')
-			str = save_quote(data, str + 1, *str);
+			str = save_quote(data, str + 1, &is_new_command);
 		else
-			str = save_word(data, str);
+			str = save_word(data, str, &is_new_command);
 		if (!str)
 			return (EXIT_FAILURE);
 	}
+	print_tokens(data->token);
 	return (EXIT_SUCCESS);
 }
