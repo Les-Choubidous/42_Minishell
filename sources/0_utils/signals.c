@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:29:55 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 18:30:07 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 11:29:13 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 /**
  * @brief Gère le signal SIGINT (Ctrl + C) en mode interactif.
- * 
+ *
  * Efface la ligne en cours dans le buffer de `readline`, déplace le curseur
  * vers une nouvelle ligne, et réaffiche le prompt. Cela permet de ne pas
  * quitter le shell lorsque l'utilisateur appuie sur Ctrl + C, mais seulement
  * d'interrompre la saisie en cours et de revenir au prompt.
- * 
+ *
  * @param signum Numéro du signal (non utilisé, il est donc casté en void).
  */
 void    reset_line(int signum)
 {
-    (void)signum;                       // Pour éviter un warning de compilation    
+    (void)signum;                       // Pour éviter un warning de compilation
     rl_replace_line("", 0);             // Efface la ligne en cours
     rl_on_new_line();                   // Indique que le curseur est sur une nouvelle ligne
     write(1, "\n", STDERR_FILENO);      // Affiche une nouvelle ligne sur la sortie standard
@@ -34,11 +34,11 @@ void    reset_line(int signum)
 /**
  * @brief Gère le signal SIGQUIT (Ctrl + \) ou SIGINT en affichant un retour
  * à la ligne.
- * 
+ *
  * Affiche une nouvelle ligne lorsqu'un signal d'interruption (SIGINT) ou
  * d'abandon (SIGQUIT) est reçu. Si le signal est SIGQUIT, affiche également
  * un message indiquant la terminaison "core dumped".
- * 
+ *
  * @param signum Numéro du signal reçu.
  */
 void    display_new_line(int signum)
@@ -51,7 +51,7 @@ void    display_new_line(int signum)
 
 /**
  * @brief Active la gestion des signaux en mode interactif.
- * 
+ *
  * Associe le signal SIGINT (Ctrl + C) à la fonction `reset_line`,
  * qui efface la ligne en cours. Ignore le signal SIGQUIT (Ctrl + \)
  * pour éviter de terminer le shell en mode interactif.
@@ -64,7 +64,7 @@ void    signal_interactive(void)
 
 /**
  * @brief Active la gestion des signaux en mode non interactif.
- * 
+ *
  * Associe les signaux SIGINT (Ctrl + C) et SIGQUIT (Ctrl + \) à la fonction
  * `display_new_line`, qui affiche une nouvelle ligne et un message pour
  * SIGQUIT (si reçu), sans quitter immédiatement le shell.

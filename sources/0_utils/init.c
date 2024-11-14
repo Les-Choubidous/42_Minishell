@@ -6,7 +6,7 @@
 /*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/14 10:58:47 by melinamotyl      ###   ########.fr       */
+/*   Updated: 2024/11/14 11:21:50 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ char	*init_full_path(char **env)
 void	init_io(t_data *data)
 {
 	{
-		data->input.type = STDIN;
+		data->input.type = INPUT;
 		data->input.value = NULL;
 		data->input.fd = 0;
 	}
 	{
-		data->output.type = STDOUT;
+		data->output.type = OUTPUT;
 		data->output.value = NULL;
 		data->output.fd = 1;
 	}
@@ -99,16 +99,9 @@ t_env *ft_get_env(char **env)
 			y++;
 		key = ft_substr(env[i], 0, y);
 		value = ft_substr(env[i], y + 1, ft_strlen(env[y]));
-		// if (!key || !value)
-		// {
-		// 	free(key);
-		// 	free(value);
-		// 	return (NULL);
-		// }
 		add_env_lst(&env_list, key, value);
 		i++;
 	}
-	//free_env_list(env_list);
 	print_env(env_list);
 	return (env_list);
 }

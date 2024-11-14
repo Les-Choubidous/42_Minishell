@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:19:05 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/14 11:30:28 by melinamotyl      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,17 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-/* *line correspond a *argv 
+/* *line correspond a *argv
 	rajout potenitel de t_env	*env
 	 a la place de char **env */
 
 typedef struct s_data
 {
-	char		**env;
-	char		*path;
+	char		**path;
+	char		*full_path;
 	char		*line;
 
+	t_env		*env;
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
@@ -110,6 +111,12 @@ typedef struct s_data
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
 /*init.c*/
+char	*init_full_path(char **env);
+void	init_io(t_data *data);
+void	add_env_lst(t_env **list, char *key, char *value);
+void	free_env_list(t_env *list);
+t_env	*ft_get_env(char **env);
+int		init_data(t_data *data, char **env);
 
 /*signals.c*/
 void			reset_line(int signum);
