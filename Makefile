@@ -1,18 +1,7 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: melinamotylewski <melinamotylewski@stud    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/13 18:52:19 by melinamotyl      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
-CC			=	cc
+CC			=	cc 
 CFLAGS		=	#-Wall -Werror -Wextra -g -MMD -MP -fsanitize=address
 LIBFT		=	libft.a
 READLINE	=	-lreadline
@@ -69,6 +58,16 @@ TRASH	=	🗑
 
 # Sources
 SRC		=	sources/main.c \
+			sources/0_utils/signals.c \
+			sources/0_utils/utils.c \
+			sources/1_lexer/save_symbols.c \
+			sources/1_lexer/save_wd_qt.c \
+			sources/1_lexer/lexer_utils.c \
+			sources/1_lexer/lexer_main.c \
+#			sources/2_parser/... \
+			sources/3_executer/... \
+			sources/4_builtins/... \
+			sources/5_free/... 
 			sources/0_utils/init.c \
 			sources/6_tests/tests.c \
 			#1_lexer/... \
@@ -148,7 +147,7 @@ project_logo:
 	@echo "			a 42 Project by MOTYLEWSKI Melina & ZANCHI Ugo								   "
 
 entry_message:
-				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR} .c files in total${RESET}"
+				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR}.c files in total${RESET}"
 
 .PHONY:			all clean fclean re project_logo entry_message
 

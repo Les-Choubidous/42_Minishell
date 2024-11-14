@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:43:20 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/12 12:37:03 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:32:27 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ size_t			ft_strlen(const char *str);
 /*Get_Next_Line function*/
 
 char			*get_next_line(int fd);
+
+/*Minishell*/
+
+int				ft_isspace(int c);
 
 /*What next ?*/
 
