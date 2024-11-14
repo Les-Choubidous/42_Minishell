@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -125,3 +126,5 @@ int	init_data(t_data *data, char **env)
 	init_io(data);
 	return (EXIT_SUCCESS);
 }
+=======
+>>>>>>> parent of 0994fb9 (Merge branch 'Melina' into Ugo)

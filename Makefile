@@ -1,8 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
+#    Updated: 2024/11/13 20:23:04 by uzanchi          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
 CC			=	cc 
-CFLAGS		=	#-Wall -Werror -Wextra -g -MMD -MP -fsanitize=address
+CFLAGS		=	#-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
@@ -34,7 +45,7 @@ BOLD	=	\033[1m
 # BLINKING = 5
 # INVERTED/UNDERLINE = 7
 # HIDDEN = 8
-# CROSSED OUT = 9
+# CROSSED OUT = 9 
 
 # Symbols
 OK		=	✓
@@ -55,7 +66,7 @@ TRASH	=	🗑
 # 	@for i in $$(seq $(PERCENT) 100); do printf " "; done
 # 	@printf "] $(PERCENT)%% ($(COUNT)/$(TOTAL))$(RESET)"
 # endef
-
+	
 # Sources
 SRC		=	sources/main.c \
 			sources/0_utils/signals.c \
@@ -68,13 +79,6 @@ SRC		=	sources/main.c \
 			sources/3_executer/... \
 			sources/4_builtins/... \
 			sources/5_free/... 
-			sources/0_utils/init.c \
-			sources/6_tests/tests.c \
-			#1_lexer/... \
-			#2_parser/... \
-			#3_executer/... \
-			#4_builtins/... \
-			#5_free/...
 
 SRCS	=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NB	=	$(words ${SRCS})
@@ -111,7 +115,7 @@ $(OBJ_DIR)/%.o:	$(SRCS_DIR)%.c
 				${CC} ${CFLAGS} -I${HEAD_DIR} -c $< -o $@; \
 				printf "${GREEN}"; \
 				printf " ${OK}\n"; \
-				printf "${RESET}";
+				printf "${RESET}"; 
 #				$(call progress_barre)
 #				@printf "\n"
 

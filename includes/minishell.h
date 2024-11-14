@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
+/*   Updated: 2024/11/13 20:19:05 by uzanchi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -91,13 +101,6 @@ typedef struct s_data
 	char		*path;
 	char		*line;
 
-typedef struct s_data
-{
-
-	char		*full_path;
-	char		**path;
-
-	t_env		*env;
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
@@ -116,14 +119,6 @@ void			signal_non_interacitve(void);
 
 /*utils.c*/
 int				ft_printf_exit_code(char *str, int exit_code);
-char	*init_full_path(char **env);
-void	init_io(t_data *data);
-
-void	add_env_lst(t_env **list, char *key, char *value);
-t_env	*ft_get_env(char **env);
-
-void	free_env_list(t_env *list);
-int		init_data(t_data *data, char **env);
 
 /*************************       1_lexer       *******************************/
 /*save_symbols.c*/
@@ -153,8 +148,5 @@ int				lexer(t_data *data);
 /*************************      4_builtins     *******************************/
 
 /*************************        5_free       *******************************/
-
-/*************************        6_tests       *******************************/
-void	print_env(t_env *print);
 
 #endif
