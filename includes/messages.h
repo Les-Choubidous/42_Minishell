@@ -30,9 +30,13 @@
 # define ROSE    "\033[38;5;216m"
 # define BOLD    "\033[1m"
 
-/*****************************MESSAGES**********************************/
 
 # define PROMPT0    BLUE"minishell$"RESET
 # define PROMPT1    PURPLE"> "RESET
+
+/*****************************MESSAGES**********************************/
+
+# define UNEXPECTED_PIPE "Syntax error: unexpected token '|' in argument\n"
+# define UNCLOSED_QUOTE "Syntax error: unclosed quote in argument\n"
 
 #endif
