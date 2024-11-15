@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:43:20 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 12:19:04 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:53:59 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char			*get_next_line(int fd);
 /*Minishell*/
 
 int 			ft_isspace(int c);
+char			*ft_concate(size_t n, ...);
 
 /*What next ?*/
 

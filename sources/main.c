@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 11:12:50 by melinamotyl       #+#    #+#             */
-/*   Updated: 2024/11/15 17:40:01 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:55:36 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,3 @@ void	exit_minishell(t_data *data, int exit_status)
 // 	launch_minishell(&data);
 // 	return (EXIT_SUCCESS);
 // }
-
-int    main(void)
-{
-    char    *str = "hello $world";
-    size_t  len = get_var_name_len(str);
-    printf("%zu\n", len);
-    return (0);
-}

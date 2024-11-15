@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 17:47:25 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:56:15 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,14 @@ typedef struct s_data
 	char		**path;
 	char		*full_path;
 	char		*line;
-
+	int			exit_status;
+	
 	t_env		*env;
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
 	t_in_out	output;
+	
 }				t_data;
 
 /*******************************FUNCTIONS*************************************/
@@ -159,6 +161,9 @@ void			free_token_list(t_token *head);
 /******* Expander *******/
 /*expander_utils.c*/
 size_t			get_var_name_len(char *str);
+char			*concate_expanded_string(char **str, size_t *i, t_data *data);
+char			*get_var_str(char *str, size_t var_exp_len, char **env);
+void			free_expanded_str(char **str1, char **str2, char **str3);
 
 /******** Parser ********/
 

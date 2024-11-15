@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:41:06 by memotyle          #+#    #+#             */
-/*   Updated: 2024/11/14 17:16:26 by parallels        ###   ########.fr       */
+/*   Updated: 2024/11/15 19:34:47 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,6 @@ int	init_data(t_data *data, char **env)
 	if (!data->env)
 		return (EXIT_FAILURE);
 	init_io(data);
+	data->exit_status = 0;
 	return (EXIT_SUCCESS);
 }
