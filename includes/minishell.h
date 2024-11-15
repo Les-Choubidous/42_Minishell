@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 12:11:21 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 15:00:28 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 /*****************************DATA_STRUCTURE**********************************/
 typedef enum e_quote
 {
-	NO_QUOTES,
-	SPL_QUOTES,
-	DBL_QUOTES,
+	NQ,
+	SQ,
+	DQ,
 }				t_quote;
 
 typedef enum e_type
@@ -45,6 +45,7 @@ typedef enum e_type
 	HEREDOC,	// <<
 	LIM,
 	PIPE,
+	FLAG, 		//-
 }			t_type;
 
 typedef struct s_list

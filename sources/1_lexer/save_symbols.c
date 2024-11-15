@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:12:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 09:47:15 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:40:33 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*identify_redirection_type(char *str, t_type *type)
 	}
 	if (*str == '<')
 	{
+
 		if (*(str + 1) == '<')
 		{
 			*type = HEREDOC;
@@ -73,22 +74,22 @@ char	*redirection_helper(char *str, t_token **new)
 	start = identify_redirection_type(str, &type);
 	while (*start && ft_isspace(*start))
 		start++;
-	quote = NO_QUOTES;
+	quote = NQ;
 	if (*start == '\'' || *start == '\"')
 	{
 		if (*start == '\'')
-			quote = SPL_QUOTES;
+			quote = SQ;
 		else
-			quote = DBL_QUOTES;
+			quote = DQ;
 		start++;
 	}
 	end = start;
 	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end)
-		&& !((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES
+		&& !((quote == SQ && *end == '\'') || (quote == DQ
 				&& *end == '\"')))
 		end++;
 	*new = new_token(start, end, type, quote);
-	if (quote != NO_QUOTES)
+	if (quote != NQ)
 		end++;
 	return (end);
 }
@@ -116,7 +117,7 @@ char	*save_symbol(t_data *data, char *str, int *is_new_command)
 	else if (*str == '|')
 	{
 		ptr = str + 1;
-		new = new_token(NULL, NULL, PIPE, NO_QUOTES);
+		new = new_token(NULL, NULL, PIPE, NQ);
 		//*is_new_command = 1;
 	}
 	else

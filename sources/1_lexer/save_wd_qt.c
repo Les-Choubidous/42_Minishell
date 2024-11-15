@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:23 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 09:36:14 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:01:34 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*save_word(t_data *data, char *str, int *is_new_command)
 		type = CMD;
 	else
 		type = ARG;
-	new = new_token(str, end, type, NO_QUOTES);
+	new = new_token(str, end, type, NQ);
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);
@@ -77,9 +77,9 @@ char	*save_quote(t_data *data, char *str, int *is_new_command)
 	}
 	// Détermination du type de quote
 	if (quote_symbol == '\'')
-		quote_type = SPL_QUOTES;
+		quote_type = SQ;
 	else
-		quote_type = DBL_QUOTES;
+		quote_type = DQ;
 	// Détermination du type de token
 	if (*is_new_command)
 		type = CMD;

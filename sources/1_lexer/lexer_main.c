@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 23:12:51 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 09:28:56 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:33:19 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	lexer(t_data *data)
 		else if (ft_strchr(SUPPORTED_SYMBOLS, *str))
 		{
 			str = save_symbol(data, str, &is_new_command);
+			printf("str : [%s]\n", str);
 			if (*(str - 1) == '|')
 				is_new_command = 1;
 		}
