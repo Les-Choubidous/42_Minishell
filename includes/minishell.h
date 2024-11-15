@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 15:00:28 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:47:25 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,11 @@ void			print_env(t_env *list);
 /*save_symbols.c*/
 char			*identify_redirection_type(char *str, t_type *type);
 char			*redirection_helper(char *str, t_token **new);
-char			*save_symbol(t_data *data, char *str, int *is_new_command);
+char			*save_symbol(t_data *data, char *str);
 
 /*save_wd_qt.c*/
-char			*save_word(t_data *data, char *str, int *is_new_command);
-char			*save_quote(t_data *data, char *str, int *is_new_command);
+char			*save_word(t_data *data, char *str);
+char			*save_quote(t_data *data, char *str, char quote_symbol);
 
 /*lexer_utils.c*/
 int				check_symbol_at_end_of_string(char *str);
@@ -156,6 +156,11 @@ void			free_token(t_token *token);
 void			free_token_list(t_token *head);
 
 /*************************       2_parser      *******************************/
+/******* Expander *******/
+/*expander_utils.c*/
+size_t			get_var_name_len(char *str);
+
+/******** Parser ********/
 
 /*************************      3_executer     *******************************/
 
