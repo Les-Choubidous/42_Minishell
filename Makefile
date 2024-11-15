@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
+#    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/11 12:30:12 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/14 18:42:49 by parallels        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Compiler targets and librairies
 NAME		=	minishell
 CC			=	cc 
-CFLAGS		=	-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
+CFLAGS		=	#-Wall -Werror -Wextra -g -fsanitize=address -MMD -MP
 LIBFT		=	libft.a
 READLINE	=	-lreadline
 
@@ -68,13 +68,19 @@ TRASH	=	🗑
 # endef
 	
 # Sources
-SRC		=	0_utils/... \
-			1_lexer/... \
-			2_parser/... \
-			3_executer/... \
-			4_builtins/... \
-			5_free/... \
-			main.c
+SRC		=	sources/main.c \
+			sources/0_utils/signals.c \
+			sources/0_utils/utils.c \
+			sources/0_utils/init.c \
+			sources/1_lexer/save_symbols.c \
+			sources/1_lexer/save_wd_qt.c \
+			sources/1_lexer/lexer_utils.c \
+			sources/1_lexer/lexer_main.c \
+			sources/1_lexer/utils_tests.c \
+#			sources/2_parser/... \
+			sources/3_executer/... \
+			sources/4_builtins/... \
+			sources/5_free/... 
 
 SRCS	=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NB	=	$(words ${SRCS})
@@ -147,7 +153,7 @@ project_logo:
 	@echo "			a 42 Project by MOTYLEWSKI Melina & ZANCHI Ugo								   "
 
 entry_message:
-				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR} .c files in total${RESET}"
+				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${RESET}${BOLD}Compiling necessary .o files out of ${SRC_NR}.c files in total${RESET}"
 
 .PHONY:			all clean fclean re project_logo entry_message
 
