@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/13 20:19:05 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 15:00:28 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 /*****************************DATA_STRUCTURE**********************************/
 typedef enum e_quote
 {
-	NO_QUOTES,
-	SPL_QUOTES,
-	DBL_QUOTES,
+	NQ,
+	SQ,
+	DQ,
 }				t_quote;
 
 typedef enum e_type
@@ -45,6 +45,7 @@ typedef enum e_type
 	HEREDOC,	// <<
 	LIM,
 	PIPE,
+	FLAG, 		//-
 }			t_type;
 
 typedef struct s_list
@@ -91,16 +92,17 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-/* *line correspond a *argv 
+/* *line correspond a *argv
 	rajout potenitel de t_env	*env
 	 a la place de char **env */
 
 typedef struct s_data
 {
-	char		**env;
-	char		*path;
+	char		**path;
+	char		*full_path;
 	char		*line;
 
+	t_env		*env;
 	t_commands	*command;
 	t_token		*token;
 	t_in_out	input;
@@ -110,6 +112,12 @@ typedef struct s_data
 /*******************************FUNCTIONS*************************************/
 /*************************       0_utils       *******************************/
 /*init.c*/
+char			*init_full_path(char **env);
+void			init_io(t_data *data);
+void			add_env_lst(t_env **list, char *key, char *value);
+
+t_env			*ft_get_env(char **env);
+int				init_data(t_data *data, char **env);
 
 /*signals.c*/
 void			reset_line(int signum);
@@ -119,16 +127,17 @@ void			signal_non_interacitve(void);
 
 /*utils.c*/
 int				ft_printf_exit_code(char *str, int exit_code);
+void			print_env(t_env *list);
 
 /*************************       1_lexer       *******************************/
 /*save_symbols.c*/
 char			*identify_redirection_type(char *str, t_type *type);
 char			*redirection_helper(char *str, t_token **new);
-char			*save_symbol(t_data *data, char *str);
+char			*save_symbol(t_data *data, char *str, int *is_new_command);
 
 /*save_wd_qt.c*/
-char			*save_word(t_data *data, char *str);
-char			*save_quote(t_data *data, char *str, char quote);
+char			*save_word(t_data *data, char *str, int *is_new_command);
+char			*save_quote(t_data *data, char *str, int *is_new_command);
 
 /*lexer_utils.c*/
 int				check_symbol_at_end_of_string(char *str);
@@ -141,6 +150,11 @@ static int		is_just_spaces(char *str);
 int				check_user_arg(char *arg);
 int				lexer(t_data *data);
 
+/*utils_tests.c*/
+void			print_tokens(t_token *token);
+void			free_token(t_token *token);
+void			free_token_list(t_token *head);
+
 /*************************       2_parser      *******************************/
 
 /*************************      3_executer     *******************************/
@@ -148,5 +162,7 @@ int				lexer(t_data *data);
 /*************************      4_builtins     *******************************/
 
 /*************************        5_free       *******************************/
+/*free_lists.c*/
+void			free_env_list(t_env *list);
 
 #endif
