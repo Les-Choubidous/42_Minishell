@@ -1,7 +1,7 @@
 # Variables
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -MMD -MP
+CFLAGS = -Wall -Werror -Wextra -g3 #-MMD -MP
 RM = rm -rf
 AR = ar rcs
 
@@ -94,4 +94,4 @@ entry_message:
 .PHONY:			all clean fclean re entry_message
 
 # Inclusion des fichiers de dépendances
--include $(DEPS)
+# -include $(DEPS)
