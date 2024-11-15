@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/14 20:46:33 by parallels        ###   ########.fr       */
+/*   Updated: 2024/11/15 12:11:21 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void			print_env(t_env *list);
 /*save_symbols.c*/
 char			*identify_redirection_type(char *str, t_type *type);
 char			*redirection_helper(char *str, t_token **new);
-char		*save_symbol(t_data *data, char *str, int *is_new_command);
+char			*save_symbol(t_data *data, char *str, int *is_new_command);
 
 /*save_wd_qt.c*/
 char			*save_word(t_data *data, char *str, int *is_new_command);
@@ -163,4 +163,5 @@ void			free_token_list(t_token *head);
 /*************************        5_free       *******************************/
 /*free_lists.c*/
 void			free_env_list(t_env *list);
+
 #endif
