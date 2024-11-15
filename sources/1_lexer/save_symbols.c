@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_symbols.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:12:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/14 20:38:18 by parallels        ###   ########.fr       */
+/*   Updated: 2024/11/15 09:47:15 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /**
  * @brief Identifie le type de redirection dans la chaîne d'entrée.
- * 
+ *
  * Cette fonction vérifie si la chaîne contient un symbole de redirection
  * ('>', '>>', '<', '<<') et assigne le type correspondant à `type`. Elle
  * retourne un pointeur sur la position suivante après la redirection dans la
  * chaîne.
- * 
+ *
  * @param str Chaîne à analyser.
  * @param type Pointeur où stocker le type de redirection détecté.
  * @return Pointeur sur le caractère après le symbole de redirection.
@@ -52,12 +52,12 @@ char	*identify_redirection_type(char *str, t_type *type)
 /**
  * @brief Gère les redirections dans le lexer en analysant le type et les
  * guillemets.
- * 
- * Cette fonction détermine le type de redirection 
- * (par `identify_redirection_type`), ignore les espaces, et traite les 
+ *
+ * Cette fonction détermine le type de redirection
+ * (par `identify_redirection_type`), ignore les espaces, et traite les
  * guillemets autour de la cible de redirection. Elle crée un nouveau token
  * pour la redirection et retourne la position après la redirection.
- * 
+ *
  * @param str Chaîne à analyser.
  * @param new Pointeur vers un pointeur de token pour y stocker le nouveau
  *            token.
@@ -84,7 +84,8 @@ char	*redirection_helper(char *str, t_token **new)
 	}
 	end = start;
 	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end)
-		&& !((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES && *end == '\"')))
+		&& !((quote == SPL_QUOTES && *end == '\'') || (quote == DBL_QUOTES
+				&& *end == '\"')))
 		end++;
 	*new = new_token(start, end, type, quote);
 	if (quote != NO_QUOTES)
@@ -94,11 +95,11 @@ char	*redirection_helper(char *str, t_token **new)
 
 /**
  * @brief Gère les symboles dans la chaîne et crée un token correspondant.
- * 
+ *
  * Vérifie que les symboles sont valides, puis appelle `redirection_helper`
  * pour traiter les redirections ou crée un token pour un pipe (`|`).
  * Retourne un pointeur sur le caractère suivant le symbole.
- * 
+ *
  * @param data Structure principale contenant la liste de tokens.
  * @param str Chaîne à analyser.
  * @return Pointeur après le symbole dans la chaîne.
@@ -107,7 +108,7 @@ char	*save_symbol(t_data *data, char *str, int *is_new_command)
 {
 	t_token	*new;
 	char	*ptr;
-
+	printf("str dans save symbol : %s\n", str);
 	if (check_symbol_at_end_of_string(str) || check_double_tokens(str))
 		return (NULL);
 	if (*str == '<' || *str == '>')
@@ -116,13 +117,13 @@ char	*save_symbol(t_data *data, char *str, int *is_new_command)
 	{
 		ptr = str + 1;
 		new = new_token(NULL, NULL, PIPE, NO_QUOTES);
-		*is_new_command = 1;
+		//*is_new_command = 1;
 	}
 	else
-    {
-        printf("Syntax error: unknown symbol %c\n", *str);
-        return (NULL);
-    }
+	{
+		printf("Syntax error: unknown symbol %c\n", *str);
+		return (NULL);
+	}
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);

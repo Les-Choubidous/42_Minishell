@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:43 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/14 19:05:33 by parallels        ###   ########.fr       */
+/*   Updated: 2024/11/15 10:05:49 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,42 @@
 
 /**
  * @brief Vérifie si un symbole de redirection est en fin de chaîne.
- * 
+ *
  * Affiche une erreur de syntaxe si un symbole de redirection est suivi de
  * rien.
- * 
+ *
  * @param str Chaîne à analyser.
  * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
  */
 int	check_symbol_at_end_of_string(char *str)
 {
-	if ((*str == '<' || *str == '>') && *str == *str + 1 && !*(str + 2))
+	if ((*str == '<' || *str == '>') && *str == *(str + 1)) // && !*(str + 2))
 	{
-		printf("Syntax error: excepted token after %c%c symbol\n", *str, *str);
-		return (EXIT_FAILURE);
+		str += 2;
+		while (ft_isspace(*str))
+			str++;
+		if (!*str)
+			return (printf("Syntax error: excepted token after %c%c symbol\n",
+					*str, *str), EXIT_FAILURE);
 	}
-	if (!*str + 1)
+	else if ((*str == '<' || *str == '>')) //&& !(*str + 1))
 	{
-		printf("Syntax error: excepted token after %c symbol\n", *str);
-		return (EXIT_FAILURE);
+		str += 1;
+		while (ft_isspace(*str))
+			str++;
+		if (!*str)
+			return (printf("Syntax error: excepted token after %c symbol\n",
+					*str), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
 
 /**
  * @brief Vérifie la validité des symboles consécutifs.
- * 
+ *
  * Vérifie si des symboles de redirection sont placés de manière correcte,
  * retourne une erreur en cas de séquence invalide.
- * 
+ *
  * @param str Chaîne à analyser.
  * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
  */
@@ -51,13 +59,13 @@ int	check_double_tokens(char *str)
 		return (EXIT_SUCCESS);
 	else
 	{
-		if ((*str == '<' && *(str + 1) == '<')
-			|| (*str == '>' && *(str + 1) == '>'))
+		if ((*str == '<' && *(str + 1) == '<') || (*str == '>' && *(str
+					+ 1) == '>'))
 			return (EXIT_SUCCESS);
 		else
 		{
-			printf("Syntax error: unexpected token %c after token %c\n",
-				*str + 1, *str);
+			printf("Syntax error: unexpected token %c after token %c\n", *str
+				+ 1, *str);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -65,11 +73,11 @@ int	check_double_tokens(char *str)
 
 /**
  * @brief Crée un nouveau token pour l'analyse lexicale.
- * 
+ *
  * Alloue un nouveau `t_token`, copie la valeur entre `start` et `end`,
  * et initialise le type et le type de guillemet. Retourne le token créé
  * ou `NULL` en cas d'échec.
- * 
+ *
  * @param start Début de la valeur dans la chaîne.
  * @param end Fin de la valeur dans la chaîne.
  * @param type Type de token (ex: ARG, PIPE, etc.).
@@ -88,7 +96,8 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 	}
 	if (start)
 	{
-		new->value = ft_substr(start, 0, end - start);// ou bien = malloc(sizeof(char) * (end - start + 1));
+		new->value = ft_substr(start, 0, end - start);
+			// ou bien = malloc(sizeof(char) * (end - start + 1));
 		if (!new->value)
 		{
 			perror("token value malloc");
@@ -108,9 +117,9 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 
 /**
  * @brief Ajoute un token à la fin de la liste chaînée des tokens.
- * 
+ *
  * Traverse la liste de tokens dans `data` et ajoute `new` à la fin.
- * 
+ *
  * @param data Structure principale contenant la liste de tokens.
  * @param new Token à ajouter.
  */
