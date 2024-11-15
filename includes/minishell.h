@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:43:29 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 17:51:51 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:26:37 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum e_type
 {
 	NOTHING,
 	CMD,
+	CMD_PIPE,	//si pipe : string avant et apres '|' est considere comme cmd de pipe
 	ARG,		// les arguments de la string (texte)
 	OUTPUT,		// >
 	INPUT,		// <
@@ -132,7 +133,9 @@ void			print_env(t_env *list);
 /*************************       1_lexer       *******************************/
 /*save_symbols.c*/
 char			*identify_redirection_type(char *str, t_type *type);
-char			*redirection_helper(char *str, t_token **new);
+// char			*redirection_helper(char *str, t_token **new);
+char	*redirection_helper(t_data *data, char *str, t_token **new_symbol,
+		t_token **new_target);
 char			*save_symbol(t_data *data, char *str, int *is_new_command);
 
 /*save_wd_qt.c*/

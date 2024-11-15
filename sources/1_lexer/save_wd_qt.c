@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:23 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 17:45:29 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:40:43 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,19 @@ char	*save_word(t_data *data, char *str, int *is_new_command)
 	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end))
 		end++;
 	if (*is_new_command)
+	{
 		type = CMD;
+		*is_new_command = 0;
+	}
+	else if (*str == '-')
+		type = FLAG;
 	else
 		type = ARG;
 	new = new_token(str, end, type, NQ);
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);
-	is_new_command = 0;
+	*is_new_command = 0;
 	return (end);
 }
 
@@ -66,10 +71,8 @@ char	*save_quote(t_data *data, char *str, int *is_new_command)
 	quote_symbol = *str;
 	str++; // Passe le guillemet ouvrant
 	end_ptr = str;
-	//printf("str : %s\n", str);
 	while (*end_ptr && *end_ptr != quote_symbol)
 		end_ptr++;
-	//printf("en ptr : %s\n", end_ptr);
 	if (!*end_ptr)
 	{
 		printf("Syntax error: unclosed quote\n");
@@ -82,7 +85,12 @@ char	*save_quote(t_data *data, char *str, int *is_new_command)
 		quote_type = DQ;
 	// Détermination du type de token
 	if (*is_new_command)
+	{
 		type = CMD;
+		*is_new_command = 0;
+	}
+	else if (*str == '-')
+		type = FLAG;
 	else
 		type = ARG;
 	new = new_token(str, end_ptr, type, quote_type);

@@ -29,26 +29,58 @@ const char	*get_type_name(t_type type)
 	}
 }
 
+// void	print_tokens(t_token *token)
+// {
+// 	const char	*color;
+// 	t_token		*current;
+
+// 	current = token;
+// 	while (current)
+// 	{
+// 		if (current->type == CMD)
+// 			color = BLUE;
+// 		else if (current->type == ARG)
+// 			color = GREEN;
+// 		else if (current->type == PIPE)
+// 			color = ROSE;
+// 		else if (current->type == OUTPUT || current->type == INPUT)
+// 			color = YELLOW;
+// 		else if (current->type == NOTHING)
+// 			color = RED;
+// 		else
+// 			color = RESET;
+// 		printf("%sToken value: [%s]\n", color, current->value);
+// 		printf("Token type: [%s]\n", get_type_name(current->type));
+// 		printf("Token quote status: {%d}\n", current->quote);
+// 		if (current->quote == 1)
+// 			printf("Simple quotes\n");
+// 		else if (current->quote == 2)
+// 			printf("Double quotes\n");
+// 		printf(RESET);
+// 		printf("------------------\n");
+// 		current = current->next;
+// 	}
+// }
+
 void	print_tokens(t_token *token)
 {
 	const char	*color;
 	t_token		*current;
+	int token_number = 0;
 
 	current = token;
 	while (current)
 	{
-		if (current->type == CMD)
+		if (current->type == CMD || current->type == ARG
+			|| current->type == LIM || current->type == FLAG)
 			color = BLUE;
-		else if (current->type == ARG)
-			color = GREEN;
-		else if (current->type == PIPE)
+		else if (current->type == OUTPUT || current->type == INPUT
+			|| current->type == PIPE || current->type == APPEND
+			|| current->type == HEREDOC)
 			color = ROSE;
-		else if (current->type == OUTPUT || current->type == INPUT)
-			color = YELLOW;
-		else if (current->type == NOTHING)
-			color = RED;
 		else
 			color = RESET;
+		printf("token %d : \n", token_number);
 		printf("%sToken value: [%s]\n", color, current->value);
 		printf("Token type: [%s]\n", get_type_name(current->type));
 		printf("Token quote status: {%d}\n", current->quote);
@@ -56,11 +88,36 @@ void	print_tokens(t_token *token)
 			printf("Simple quotes\n");
 		else if (current->quote == 2)
 			printf("Double quotes\n");
+		token_number++;
 		printf(RESET);
 		printf("------------------\n");
 		current = current->next;
 	}
 }
+
+// void	print_tokens(t_token *token)
+// {
+// 	t_token		*current;
+// 	const char	*color;
+// 	int token_number = 1;
+
+// 	current = token;
+// 	while (current)
+// 	{
+// 		if (current->type == CMD || current->type == ARG
+// 			|| current->type == LIM || current->type == FLAG)
+// 			color = BLUE;
+// 		else if (current->type == OUTPUT || current->type == INPUT
+// 			|| current->type == PIPE || current->type == APPEND
+// 			|| current->type == HEREDOC)
+// 			color = ROSE;
+// 		else
+// 			color = RESET;
+// 		printf("token %d : [%s : %s]\n", token_number, current->value, get_type_name(current->type));
+// 		current = current->next;
+// 		token_number++;
+// 	}
+// }
 
 void	free_token_list(t_token *head)
 {

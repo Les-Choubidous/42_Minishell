@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:43 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 18:13:23 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:42:52 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_token	*new_token(char *start, char *end, t_type type, t_quote quote)
 			free(new);
 			return (NULL);
 		}
-		printf("\tVALUE : %s\n", new->value);
+		// printf("\tVALUE : %s\n", new->value);
 	}
 	else
 		new->value = NULL;

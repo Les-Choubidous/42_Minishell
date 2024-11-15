@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:12:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 18:08:11 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:23:39 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,28 @@
  */
 char	*identify_redirection_type(char *str, t_type *type)
 {
+	printf("print str dans identify : %s\n", str);
 	if (*str == '>')
 	{
-		if (*(str + 1) == '>')
+		if (*(str) == '>')
 		{
 			*type = APPEND;
-			return (str + 2);
+			return (str + 1);
 		}
 		*type = OUTPUT;
 		return (str + 1);
 	}
 	if (*str == '<')
 	{
-
 		if (*(str + 1) == '<')
 		{
 			*type = HEREDOC;
-			return (str + 2);
+			return (str + 1);
 		}
 		*type = INPUT;
 		return (str + 1);
 	}
-	return (str);
+	return (str + 1);
 }
 
 /**
@@ -64,34 +64,46 @@ char	*identify_redirection_type(char *str, t_type *type)
  *            token.
  * @return Pointeur après la redirection dans la chaîne.
  */
-char	*redirection_helper(char *str, t_token **new)
+char	*redirection_helper(t_data *data, char *str, t_token **new_symbol,
+		t_token **new_target)
 {
 	t_type	type;
 	t_quote	quote;
 	char	*start;
 	char	*end;
 
+	quote = NQ;
+	// Identifier le type de redirection
 	start = identify_redirection_type(str, &type);
+	start++;                            // Passer le premier chevron
+	if (*start == '>' || *start == '<') // Si c'est un double chevron (>>, <<)
+		start++;
+	// Créer un token pour le symbole de redirection
+	*new_symbol = new_token(NULL, NULL, type, NQ);
+	if (!*new_symbol)
+		return (NULL);
+	// Ignorer les espaces après la redirection
 	while (*start && ft_isspace(*start))
 		start++;
-	quote = NQ;
+	// Gérer les guillemets autour de la cible
 	if (*start == '\'' || *start == '\"')
 	{
-		if (*start == '\'')
-			quote = SQ;
-		else
-			quote = DQ;
+		quote = (*start == '\'') ? SQ : DQ;
 		start++;
 	}
+	// Trouver la fin de la cible
 	end = start;
-	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end)
-		&& !((quote == SQ && *end == '\'') || (quote == DQ
-				&& *end == '\"')))
+	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end))
+	{
+		if ((quote == SQ && *end == '\'') || (quote == DQ && *end == '\"'))
+			break ;
 		end++;
-	*new = new_token(start, end, type, quote);
-	if (quote != NQ)
+	}
+	// Créer un token pour la cible de la redirection
+	*new_target = new_token(start, end, ARG, quote);
+	if (quote != NQ && *end == '\'' || *end == '\"')
 		end++;
-	return (end);
+	return (end); // Retourner la position après la cible
 }
 
 /**
@@ -107,27 +119,41 @@ char	*redirection_helper(char *str, t_token **new)
  */
 char	*save_symbol(t_data *data, char *str, int *is_new_command)
 {
-	t_token	*new;
+	t_token	*new_symbol;
+	t_token	*new_target;
 	char	*ptr;
+
+	new_symbol = NULL;
+	new_target = NULL;
+	// Vérifier les erreurs sur les symboles
 	if (check_double_tokens(str))
 		return (NULL);
 	if (check_symbol_at_end_of_string(str))
 		return (NULL);
+	// Gestion des symboles
 	if (*str == '<' || *str == '>')
-		ptr = redirection_helper(str, &new);
+	{
+		// Gérer les redirections
+		ptr = redirection_helper(data, str, &new_symbol, &new_target);
+		// Ajouter les deux tokens à la liste
+		if (new_symbol)
+			lst_token_add_back(data, new_symbol);
+		if (new_target)
+			lst_token_add_back(data, new_target);
+	}
 	else if (*str == '|')
 	{
+		// Gérer le pipe
 		ptr = str + 1;
-		new = new_token(NULL, NULL, PIPE, NQ);
-		//*is_new_command = 1;
+		new_symbol = new_token(NULL, NULL, PIPE, NQ);
+		lst_token_add_back(data, new_symbol);
+		*is_new_command = 1; // Indiquer une nouvelle commande
 	}
 	else
 	{
+		// Symbole non pris en charge
 		printf("Syntax error: unknown symbol %c\n", *str);
 		return (NULL);
 	}
-	if (!new)
-		return (NULL);
-	lst_token_add_back(data, new);
-	return (ptr);
+	return (ptr); // Retourner la position après le symbole
 }
