@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:43 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 15:43:33 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:13:23 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,29 @@
  * @param str Chaîne à analyser.
  * @return `EXIT_FAILURE` en cas d'erreur, `EXIT_SUCCESS` sinon.
  */
-// int	check_symbol_at_end_of_string(char *str)
-// {
-// 	if ((*str == '<' || *str == '>') && *str == *(str + 1)) // && !*(str + 2))
-// 	{
-// 		str += 2;
-// 		while (ft_isspace(*str))
-// 			str++;
-// 		if (!*str)
-// 			return (printf("Syntax error: excepted token after %c%c symbol\n",
-// 					*str, *str), EXIT_FAILURE);
-// 	}
-// 	else if ((*str == '<' || *str == '>')) //&& !(*str + 1))
-// 	{
-// 		str += 1;
-// 		while (ft_isspace(*str))
-// 			str++;
-// 		if (!*str)
-// 			return (printf("Syntax error: excepted token after %c symbol\n",
-// 					*str), EXIT_FAILURE);
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
 int	check_symbol_at_end_of_string(char *str)
 {
-	if ((*str == '<' || *str == '>') && *str == *str + 1 && !*(str + 2))
+	if ((*str == '<' || *str == '>') && *(str + 1) && *(str + 1) == *str)
 	{
-		printf("Syntax error: excepted token after %c%c symbol\n", *str, *str);
-		return (EXIT_FAILURE);
+		str += 2;
+		while (*str && ft_isspace(*str))
+			str++;
+		if (!*str)
+		{
+			printf("Syntax error: excepted token after %c%c symbol\n", *str, *str);
+			return (EXIT_FAILURE);
+		}
 	}
-	if (!*str + 1)
+	else if ((*str == '<' || *str == '>')) //&& !(*str + 1))
 	{
-		printf("Syntax error: excepted token after %c symbol\n", *str);
-		return (EXIT_FAILURE);
+		str++;
+		while (*str && ft_isspace(*str))
+			str++;
+		if (!*str)
+		{
+			printf("Syntax error: excepted token after %c symbol\n", *str);
+			return (EXIT_FAILURE);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

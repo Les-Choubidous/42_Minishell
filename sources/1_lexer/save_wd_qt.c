@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:23 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 15:01:34 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:45:29 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ char	*save_quote(t_data *data, char *str, int *is_new_command)
 	quote_symbol = *str;
 	str++; // Passe le guillemet ouvrant
 	end_ptr = str;
-	printf("str : %s\n", str);
+	//printf("str : %s\n", str);
 	while (*end_ptr && *end_ptr != quote_symbol)
 		end_ptr++;
-	printf("en ptr : %s\n", end_ptr);
+	//printf("en ptr : %s\n", end_ptr);
 	if (!*end_ptr)
 	{
 		printf("Syntax error: unclosed quote\n");

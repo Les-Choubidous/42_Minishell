@@ -6,7 +6,7 @@
 /*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:12:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 15:40:33 by memotyle         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:08:11 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ char	*save_symbol(t_data *data, char *str, int *is_new_command)
 {
 	t_token	*new;
 	char	*ptr;
-	printf("str dans save symbol : %s\n", str);
-	if (check_symbol_at_end_of_string(str) || check_double_tokens(str))
+	if (check_double_tokens(str))
+		return (NULL);
+	if (check_symbol_at_end_of_string(str))
 		return (NULL);
 	if (*str == '<' || *str == '>')
 		ptr = redirection_helper(str, &new);

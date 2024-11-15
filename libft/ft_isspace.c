@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: memotyle <memotyle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:08:15 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 12:09:05 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:33:34 by memotyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
-    if (c == ' ' || (c >= 9 && c <= 13))
-        return (1);
-    else
-        return (0);
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	else
+		return (0);
 }
