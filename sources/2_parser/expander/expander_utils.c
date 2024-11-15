@@ -6,12 +6,15 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:23:13 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 20:57:22 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 21:17:40 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+/*Okay Ugo alors demain il faut que tu adaptes le code que tu as fait par
+rapport a la liste chaine env car on a pas un char **env. Une fois que ca est
+good, terminer l'expander en demandant tous le cas particulier a GPT*/
 /***********************     utils    ***********************/
 
 size_t	get_var_name_len(char *str)
@@ -58,7 +61,7 @@ char	*concate_expanded_string(char **str, size_t *i, t_data *data)
 	if ((*str)[*i + 1] == '?')
 		var_part_str = ft_itoa(data->exit_status);
 	else
-		var_part_str = ft_strdup(get_var_str(&(*str)[*i], var_len, data->env));
+		var_part_str = ft_strdup(get_var_str(&(*str)[*i], var_len, &data->env->value));
 	third_part_str = ft_substr(&(*str)[*i + var_len + 1], 0,
 			ft_strlen(&(*str)[*i + var_len + 1]));
 	expanded_str = ft_concate(3, first_part_str, var_part_str, third_part_str);
