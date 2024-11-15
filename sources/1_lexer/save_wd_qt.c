@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:14:23 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/15 11:00:29 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:39:29 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*save_word(t_data *data, char *str)
 	end = str;
 	while (*end && !ft_isspace(*end) && !ft_strchr(SUPPORTED_SYMBOLS, *end))
 		end++;
-	new = new_token(str, end, ARG, NO_QUOTES);
+	new = new_token(str, end, ARG, NQ);
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);
@@ -58,9 +58,9 @@ char	*save_quote(t_data *data, char *str, char quote_symbol)
 	while (*end_ptr && *end_ptr != quote_symbol)
 		end_ptr++;
 	if (quote_symbol == '\'')
-		new = new_token(str + 1, end_ptr, ARG, SPL_QUOTES);
+		new = new_token(str + 1, end_ptr, ARG, SQ);
 	else
-		new = new_token(str + 1, end_ptr, ARG, DBL_QUOTES);
+		new = new_token(str + 1, end_ptr, ARG, DQ);
 	if (!new)
 		return (NULL);
 	lst_token_add_back(data, new);

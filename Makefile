@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
+#    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/09 18:16:07 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/14 18:42:49 by parallels        ###   ########.fr        #
+#    Updated: 2024/11/15 17:48:29 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRC		=	sources/main.c \
 			sources/1_lexer/lexer_utils.c \
 			sources/1_lexer/lexer_main.c \
 			sources/1_lexer/utils_tests.c \
+			sources/2_parser/expander/expander_utils.c 
 #			sources/2_parser/... \
 			sources/3_executer/... \
 			sources/4_builtins/... \
